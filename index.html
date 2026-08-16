@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOVU - O App do Motorista</title>
-    <!-- Google Fonts para uma tipografia moderna -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,233 +12,307 @@
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
         }
-        
+
         body {
             background: #0d0e12;
-            height: 100vh;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        /* TELA DE LOGIN */
+        .tela-login {
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             position: relative;
+            padding: 20px;
         }
 
-        /* Fundo com Carro Moderno e Iluminação Neon */
-        .background-overlay {
+        .fundo-tela {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: 
-                linear-gradient(180deg, rgba(13, 14, 18, 0.4) 0%, rgba(13, 14, 18, 0.9) 100%),
-                url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&q=80&w=1000') no-repeat center center;
+                linear-gradient(180deg, rgba(13,14,18,0.5) 0%, #0d0e12 100%),
+                url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&q=80&w=1000') no-repeat center;
             background-size: cover;
             z-index: 1;
         }
 
-        /* Container Principal com efeito Glassmorphic */
-        .app-container {
-            position: relative;
-            z-index: 2;
-            width: 90%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.05);
+        .caixa {
+            position: relative; z-index: 2;
+            width: 100%; max-width: 400px;
+            background: rgba(255,255,255,0.05);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 24px;
-            padding: 40px 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            padding: 35px 25px;
             text-align: center;
-            transition: all 0.4s ease;
         }
 
-        /* Área da Logo Customizada */
-        .logo-container {
-            margin-bottom: 30px;
-        }
+        .logo { margin-bottom: 25px; }
+        .logo h1 { font-size: 36px; font-weight: 800; color: #fff; letter-spacing: 2px; }
+        .logo span { color: #ff8800; font-size: 13px; }
 
-        /* Desenho em CSS da Logo que você escolheu */
-        .logo-svg {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
-        }
-
-        .brand-name {
-            font-size: 32px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .brand-subtitle {
-            font-size: 12px;
-            color: #a0aec0;
-            margin-top: 4px;
-            letter-spacing: 1px;
-        }
-
-        /* Formulários */
-        .form-wrapper {
-            display: none;
-        }
-
-        .form-wrapper.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            color: #cbd5e0;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            outline: none;
+        .grupo-input { margin-bottom: 18px; text-align: left; }
+        .grupo-input label { font-size: 13px; color: #ccc; margin-bottom: 6px; display: block; }
+        .grupo-input input, .grupo-input textarea {
+            width: 100%; padding: 14px 16px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
-            color: #fff;
-            font-size: 15px;
-            transition: all 0.3s ease;
+            color: #fff; font-size: 15px; outline: none;
         }
+        .grupo-input input:focus, .grupo-input textarea:focus { border-color: #ff8800; }
 
-        .input-group input:focus {
-            border-color: #ff7a00;
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 10px rgba(255, 122, 0, 0.2);
+        .btn-laranja {
+            width: 100%; padding: 15px;
+            background: linear-gradient(90deg, #ff8800, #ff5500);
+            border: none; border-radius: 12px;
+            color: #fff; font-size: 16px; font-weight: 700;
+            cursor: pointer; transition: 0.3s;
         }
+        .btn-laranja:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,85,0,0.3); }
 
-        /* Botão Laranja Vibrante */
-        .btn-primary {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #ff7a00 0%, #ff5100 100%);
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(255, 81, 0, 0.3);
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
+        .link-troca { margin-top: 20px; font-size: 14px; color: #aaa; }
+        .link-troca a { color: #ff8800; text-decoration: none; font-weight: 600; }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(255, 81, 0, 0.5);
+        /* TELA PRINCIPAL — APÓS LOGIN */
+        .tela-principal { display: none; padding-bottom: 40px; }
+        .cabecalho {
+            background: #14151c; padding: 20px; display: flex;
+            justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
+        .cabecalho h2 { font-size: 22px; }
+        .cabecalho h2 span { color: #ff8800; }
+        .btn-sair { background: none; border: none; color: #ff6666; font-size: 15px; cursor: pointer; }
 
-        /* Links de Alternância */
-        .toggle-text {
-            color: #a0aec0;
-            font-size: 14px;
-            margin-top: 25px;
-        }
+        .ola { padding: 20px; font-size: 18px; }
+        .ola b { color: #ff8800; }
 
-        .toggle-text a {
-            color: #ff7a00;
-            text-decoration: none;
-            font-weight: 600;
-            margin-left: 5px;
-            transition: color 0.3s;
+        .container { padding: 0 16px; }
+        .cartao {
+            background: #1a1b23; border-radius: 16px;
+            padding: 22px; margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
+        .cartao h3 { font-size: 17px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+        .cartao h3::before { content: "🚗"; }
 
-        .toggle-text a:hover {
-            color: #ff9e40;
-            text-decoration: underline;
+        .titulo-lista { font-size: 16px; margin: 10px 0 15px; color: #ccc; }
+        .item-corrida {
+            background: #242530; border-radius: 12px; padding: 14px; margin-bottom: 10px;
+            border-left: 3px solid #ff8800;
         }
+        .item-corrida p { font-size: 14px; margin: 4px 0; color: #ddd; }
+        .item-corrida .valor { font-size: 17px; font-weight: 700; color: #00ff88; }
+
+        .escondido { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div class="background-overlay"></div>
-
-    <div class="app-container">
-        <!-- Logo do MOVU -->
-        <div class="logo-container">
-            <!-- Recriação exata em SVG da Logo escolhida (M estilizado com Seta Laranja e Azul) -->
-            <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 70 L38 25 L50 48 L62 25 L85 70" stroke="white" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M30 55 C45 35, 55 35, 75 55" stroke="url(#orange-grad)" stroke-width="12" stroke-linecap="round"/>
-                <path d="M72 45 L82 55 L72 65" stroke="#ff7a00" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                <defs>
-                    <linearGradient id="orange-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#ff9e40" />
-                        <stop offset="100%" stop-color="#ff5100" />
-                    </linearGradient>
-                </defs>
-            </svg>
-            <h1 class="brand-name">Movu</h1>
-            <p class="brand-subtitle">O APP DO MOTORISTA</p>
+<!-- ======================================
+    TELA 1 — LOGIN E CADASTRO
+====================================== -->
+<div id="telaLogin" class="tela-login">
+    <div class="fundo-tela"></div>
+    <div class="caixa">
+        <div class="logo">
+            <h1>MOVU</h1>
+            <span>O APP DO MOTORISTA</span>
         </div>
 
-        <!-- Formulário de Login (Ativo por padrão) -->
-        <div id="login-form" class="form-wrapper active">
-            <form onsubmit="event.preventDefault(); alert('Login efetuado! Próximo passo: Tela de Corridas.');">
-                <div class="input-group">
-                    <label for="login-email">E-mail ou CPF</label>
-                    <input type="text" id="login-email" placeholder="Digite seu e-mail ou CPF" required>
-                </div>
-                <div class="input-group">
-                    <label for="login-password">Senha</label>
-                    <input type="password" id="login-password" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="btn-primary">ENTRAR</button>
-            </form>
-            <p class="toggle-text">Não tem conta?<a href="#" onclick="toggleForm('register-form')">Cadastre-se</a></p>
+        <!-- FORM DE LOGIN -->
+        <div id="formLogin">
+            <div class="grupo-input">
+                <label>E-mail ou CPF</label>
+                <input type="text" id="usuario" placeholder="seuemail@email.com ou 123.456.789-00">
+            </div>
+            <div class="grupo-input">
+                <label>Senha</label>
+                <input type="password" id="senha" placeholder="••••••••">
+            </div>
+            <button class="btn-laranja" onclick="entrar()">ENTRAR</button>
+            <div class="link-troca">Não tem conta? <a href="#" onclick="trocarForm()">Cadastre-se</a></div>
         </div>
 
-        <!-- Formulário de Cadastro -->
-        <div id="register-form" class="form-wrapper">
-            <form onsubmit="event.preventDefault(); alert('Cadastro realizado com sucesso! Agora faça login.'); toggleForm('login-form');">
-                <div class="input-group">
-                    <label for="reg-nome">Nome Completo</label>
-                    <input type="text" id="reg-nome" placeholder="Seu nome" required>
-                </div>
-                <div class="input-group">
-                    <label for="reg-email">E-mail</label>
-                    <input type="email" id="reg-email" placeholder="seu@email.com" required>
-                </div>
-                <div class="input-group">
-                    <label for="reg-password">Senha</label>
-                    <input type="password" id="reg-password" placeholder="Crie uma senha forte" required>
-                </div>
-                <button type="submit" class="btn-primary">CADASTRAR</button>
-            </form>
-            <p class="toggle-text">Já tem uma conta?<a href="#" onclick="toggleForm('login-form')">Faça Login</a></p>
+        <!-- FORM DE CADASTRO (ESCONDIDO NO INÍCIO) -->
+        <div id="formCadastro" class="escondido">
+            <div class="grupo-input">
+                <label>Nome Completo</label>
+                <input type="text" id="nomeCompleto" placeholder="Seu nome completo">
+            </div>
+            <div class="grupo-input">
+                <label>E-mail ou CPF</label>
+                <input type="text" id="novoUsuario" placeholder="seuemail@email.com ou CPF">
+            </div>
+            <div class="grupo-input">
+                <label>Criar Senha</label>
+                <input type="password" id="novaSenha" placeholder="Mínimo 6 caracteres">
+            </div>
+            <button class="btn-laranja" onclick="cadastrar()">CADASTRAR</button>
+            <div class="link-troca">Já tem conta? <a href="#" onclick="trocarForm()">Fazer Login</a></div>
         </div>
     </div>
+</div>
 
-    <!-- Script Simples para Alternar as Telas -->
-    <script>
-        function toggleForm(formId) {
-            document.querySelectorAll('.form-wrapper').forEach(form => {
-                form.classList.remove('active');
-            });
-            document.getElementById(formId).classList.add('active');
-        }
-    </script>
+<!-- ======================================
+    TELA 2 — ÁREA PRINCIPAL / CADASTRAR CORRIDAS
+====================================== -->
+<div id="telaPrincipal" class="tela-principal">
+    <div class="cabecalho">
+        <h2>MOV<span>U</span></h2>
+        <button class="btn-sair" onclick="sair()">Sair ←</button>
+    </div>
+
+    <div class="ola">Olá, <b id="nomeUsuario">Motorista</b> 👋</div>
+
+    <div class="container">
+        <!-- CARTÃO — CADASTRAR NOVA CORRIDA -->
+        <div class="cartao">
+            <h3>Nova Corrida</h3>
+
+            <div class="grupo-input">
+                <label>📍 Origem</label>
+                <input type="text" id="origem" placeholder="De onde saiu?">
+            </div>
+
+            <div class="grupo-input">
+                <label>🎯 Destino</label>
+                <input type="text" id="destino" placeholder="Para onde foi?">
+            </div>
+
+            <div class="grupo-input">
+                <label>💵 Valor da Corrida (R$)</label>
+                <input type="number" step="0.01" id="valor" placeholder="0,00">
+            </div>
+
+            <div class="grupo-input">
+                <label>📅 Data / Horário</label>
+                <input type="datetime-local" id="dataHora">
+            </div>
+
+            <div class="grupo-input">
+                <label>📝 Observações</label>
+                <textarea id="obs" rows="2" placeholder="Ex: viagem longa, pedágio..."></textarea>
+            </div>
+
+            <button class="btn-laranja" onclick="salvarCorrida()">💾 SALVAR CORRIDA</button>
+        </div>
+
+        <!-- LISTA DE CORRIDAS SALVAS -->
+        <div class="cartao">
+            <h3>Últimas Corridas</h3>
+            <div id="listaCorridas">
+                <p style="color:#888; font-size:14px;">Nenhuma corrida cadastrada ainda.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ------------------- ALTERNAR LOGIN ↔ CADASTRO -------------------
+function trocarForm() {
+    document.getElementById('formLogin').classList.toggle('escondido');
+    document.getElementById('formCadastro').classList.toggle('escondido');
+}
+
+// ------------------- ENTRAR -------------------
+function entrar() {
+    const usuario = document.getElementById('usuario').value.trim();
+    const senha = document.getElementById('senha').value;
+
+    if (!usuario || !senha) return alert('Preencha tudo!');
+
+    // Salva nome do usuário
+    localStorage.setItem('movu_usuario', usuario.split(' ')[0]);
+    mostrarTelaPrincipal();
+}
+
+// ------------------- CADASTRAR -------------------
+function cadastrar() {
+    const nome = document.getElementById('nomeCompleto').value.trim();
+    const usuario = document.getElementById('novoUsuario').value.trim();
+    const senha = document.getElementById('novaSenha').value;
+
+    if (!nome || !usuario || senha.length < 6) {
+        return alert('Preencha tudo e senha com pelo menos 6 dígitos!');
+    }
+
+    localStorage.setItem('movu_usuario', nome.split(' ')[0]);
+    alert('Cadastrado com sucesso! ✅');
+    mostrarTelaPrincipal();
+}
+
+// ------------------- MOSTRAR TELA PRINCIPAL -------------------
+function mostrarTelaPrincipal() {
+    document.getElementById('telaLogin').classList.add('escondido');
+    document.getElementById('telaPrincipal').style.display = 'block';
+    document.getElementById('nomeUsuario').innerText = localStorage.getItem('movu_usuario') || 'Motorista';
+    carregarCorridas();
+}
+
+// ------------------- SALVAR CORRIDA -------------------
+function salvarCorrida() {
+    const origem = document.getElementById('origem').value.trim();
+    const destino = document.getElementById('destino').value.trim();
+    const valor = document.getElementById('valor').value;
+    const dataHora = document.getElementById('dataHora').value;
+    const obs = document.getElementById('obs').value.trim();
+
+    if (!origem || !destino || !valor) return alert('Preencha Origem, Destino e Valor!');
+
+    const corrida = {
+        origem, destino, valor, dataHora, obs,
+        id: Date.now()
+    };
+
+    let corridas = JSON.parse(localStorage.getItem('movu_corridas') || '[]');
+    corridas.unshift(corrida);
+    localStorage.setItem('movu_corridas', JSON.stringify(corridas));
+
+    // Limpar campos
+    document.getElementById('origem').value = '';
+    document.getElementById('destino').value = '';
+    document.getElementById('valor').value = '';
+    document.getElementById('dataHora').value = '';
+    document.getElementById('obs').value = '';
+
+    carregarCorridas();
+    alert('Corrida salva! ✅');
+}
+
+// ------------------- CARREGAR CORRIDAS SALVAS -------------------
+function carregarCorridas() {
+    const lista = document.getElementById('listaCorridas');
+    const corridas = JSON.parse(localStorage.getItem('movu_corridas') || '[]');
+
+    if (corridas.length === 0) {
+        lista.innerHTML = '<p style="color:#888; font-size:14px;">Nenhuma corrida cadastrada ainda.</p>';
+        return;
+    }
+
+    lista.innerHTML = corridas.map(c => `
+        <div class="item-corrida">
+            <p><strong>📍 ${c.origem}</strong> → 🎯 ${c.destino}</p>
+            <p class="valor">R$ ${Number(c.valor).toFixed(2)}</p>
+            <p>📅 ${c.dataHora ? c.dataHora.replace('T', ' às ') : 'Sem data'}</p>
+            ${c.obs ? `<p>📝 ${c.obs}</p>` : ''}
+        </div>
+    `).join('');
+}
+
+// ------------------- SAIR -------------------
+function sair() {
+    document.getElementById('telaPrincipal').style.display = 'none';
+    document.getElementById('telaLogin').classList.remove('escondido');
+    document.getElementById('formLogin').classList.remove('escondido');
+    document.getElementById('formCadastro').classList.add('escondido');
+}
+</script>
+
 </body>
 </html>
