@@ -7,14 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
-        body {background: #0F0F0F; min-height: 100vh; color: #fff;}
+        body {background: #0F0F0F; min-height: 100vh; color: #fff; padding-bottom: 70px;}
 
-        /* TELA LOGIN */
-        .tela-login {min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;}
+        /* --- TELA LOGIN --- */
+        .tela-login {min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; position: relative;}
         .fundo-tela {position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, #000 100%); z-index: 1;}
         .caixa {position: relative; z-index: 2; width: 100%; max-width: 420px; background: rgba(30,30,30,0.7); backdrop-filter: blur(20px); border-radius: 24px; padding: 35px 25px; text-align: center;}
         
-        /* ✅ LOGO — EXATAMENTE COMO VOCÊ APROVOU */
+        /* LOGO — EXATAMENTE COMO APROVOU */
         .logo {margin-bottom: 28px; white-space: nowrap;}
         .logo-movu {font-size: 64px; font-weight: 900; color: #FF9800; text-shadow: 2px 3px 4px rgba(0,0,0,0.4);}
         .logo-digital {font-size: 32px; font-weight: 700; color: #2196F3; margin-left: 6px; text-shadow: 2px 3px 4px rgba(0,0,0,0.4);}
@@ -23,68 +23,72 @@
 
         .grupo-input {margin-bottom: 16px; text-align: left;}
         .grupo-input label {font-size: 13px; color: #aaa; margin-bottom: 6px; display: block;}
-        .grupo-input input {width: 100%; padding: 13px 15px; background: #1A1A1A; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 15px; outline: none; transition: .2s;}
-        .grupo-input input:focus {border-color: #FF9800; box-shadow: 0 0 0 2px rgba(255,152,0,0.15);}
+        .grupo-input input, .grupo-input select, .grupo-input textarea {width: 100%; padding: 13px 15px; background: #1A1A1A; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 15px; outline: none;}
+        .grupo-input input:focus, .grupo-input select:focus {border-color: #FF9800;}
         
-        .btn-laranja {width: 100%; padding: 15px; background: linear-gradient(90deg, #FF9800, #FF6F00); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; transition: .3s;}
-        .btn-laranja:hover {transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,111,0,0.3);}
+        .btn-laranja {width: 100%; padding: 15px; background: linear-gradient(90deg, #FF9800, #FF6F00); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; transition: .2s;}
+        .btn-laranja:hover {transform: translateY(-1px); box-shadow: 0 6px 15px rgba(255,111,0,0.25);}
+        .btn-azul {background: linear-gradient(90deg, #2196F3, #1565C0);}
+        .btn-azul:hover {box-shadow: 0 6px 15px rgba(33,150,243,0.25);}
+        .btn-verde {background: linear-gradient(90deg, #00C853, #009624);}
+        .btn-verde:hover {box-shadow: 0 6px 15px rgba(0,200,83,0.25);}
         
         .link-troca {margin-top: 20px; font-size: 14px; color: #888;}
         .link-troca a {color: #FF9800; text-decoration: none; font-weight: 600;}
 
-        /* ✅ MENU DE NAVEGAÇÃO */
-        .menu-superior {background: #151515; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #2A2A2A;}
-        .menu-logo {font-size: 20px; font-weight: 900; white-space: nowrap;}
-        .menu-movu {color: #FF9800;}
-        .menu-digital {font-size: 14px; color: #2196F3; margin-left: 3px; font-weight: 700;}
-        
-        .menu-navegacao {display: flex; gap: 8px;}
-        .menu-item {display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: transparent; border: none; border-radius: 10px; color: #aaa; font-size: 14px; font-weight: 600; cursor: pointer; transition: .2s;}
-        .menu-item.ativo {background: rgba(255,152,0,0.1); color: #FF9800;}
-        .menu-item:hover {background: rgba(255,152,0,0.08); color: #fff;}
-        .menu-item.ativo-rel {background: rgba(33,150,243,0.1); color: #2196F3;}
-        .menu-item.ativo-rel:hover {background: rgba(33,150,243,0.15);}
+        /* --- MENU COMPACTO FIXO --- */
+        .cabecalho {position: sticky; top: 0; background: #151515; padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #2A2A2A; z-index: 99;}
+        .logo-mini {font-size: 18px; font-weight: 900; white-space: nowrap;}
+        .mini-movu {color: #FF9800;}
+        .mini-digital {font-size: 12px; color: #2196F3; margin-left: 2px; font-weight: 700;}
 
-        .btn-sair {background: rgba(255,82,82,0.1); border: none; padding: 8px 14px; border-radius: 8px; color: #FF5252; font-size: 14px; cursor: pointer; font-weight: 600; transition: .2s;}
-        .btn-sair:hover {background: rgba(255,82,82,0.2);}
-        
-        /* CONTEÚDO DAS TELAS */
-        .tela-principal {display: none; padding-bottom: 50px;}
-        .ola {padding: 20px; font-size: 18px;}
+        .btn-voltar {display: none; align-items: center; gap: 4px; background: transparent; border: none; color: #aaa; font-size: 14px; cursor: pointer; padding: 6px 10px; border-radius: 8px;}
+        .btn-voltar.mostrar {display: flex;}
+        .btn-voltar:hover {background: #2A2A2A; color: #fff;}
+
+        .menu-principal {display: flex; gap: 8px;}
+        .menu-item {display: flex; align-items: center; gap: 5px; background: transparent; border: none; color: #aaa; font-size: 13px; padding: 8px 12px; border-radius: 8px; cursor: pointer;}
+        .menu-item.ativo {background: rgba(255,152,0,0.12); color: #FF9800;}
+        .menu-item.ativo-rel {background: rgba(33,150,243,0.12); color: #2196F3;}
+        .menu-item:hover {background: #2A2A2A; color: #fff;}
+
+        .btn-sair {background: rgba(239,83,80,0.1); border: none; color: #EF5350; font-size: 13px; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600;}
+        .btn-sair:hover {background: rgba(239,83,80,0.2);}
+
+        /* --- CONTEÚDO --- */
+        .tela-principal {display: none;}
+        .ola {padding: 18px 16px 10px; font-size: 17px;}
         .ola b {color: #FF9800;}
         .container {padding: 0 16px;}
 
         .aba {display: none;}
-        .aba.visivel {display: block;}
-        
-        .painel-totais {display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px;}
-        .card-total {background: #1A1A1A; border-radius: 14px; padding: 15px; border: 1px solid #2A2A2A;}
-        .rotulo {font-size: 12px; color: #888; margin-bottom: 4px;}
-        .valor {font-size: 20px; font-weight: 800;}
-        .verde {color: #00ff88;} .laranja {color: #FF9800;} .azul {color: #2196F3;}
-        
-        .cartao {background: #1A1A1A; border-radius: 16px; padding: 22px; margin-bottom: 22px; border: 1px solid #2A2A2A;}
-        .cartao h3 {font-size: 17px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; font-weight: 700;}
-        
-        .grupo-input {margin-bottom: 16px; text-align: left;}
-        .grupo-input select {width: 100%; padding: 13px 15px; background: #1A1A1A; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 15px; outline: none;}
-        
-        .item-corrida {background: #222; border-radius: 12px; padding: 14px; margin-bottom: 10px; border-left: 3px solid #FF9800;}
-        .linha {display: flex; justify-content: space-between; margin: 4px 0; font-size: 14px; color: #ddd;}
-        .valor-corrida {font-size: 17px; font-weight: 800; color: #00ff88;}
-        .tag-app {display: inline-block; background: rgba(255,152,0,0.1); color: #FF9800; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700;}
-        .tag-per {display: inline-block; background: rgba(33,150,243,0.1); color: #64B5F6; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; margin-left: 6px;}
-        
-        .escondido {display: none !important;}
+        .aba.ativa {display: block;}
 
-        /* ÁREA DE RELATÓRIOS */
-        .relatorio-vazio {text-align: center; padding: 40px 20px; color: #777;}
-        .relatorio-vazio svg {width: 64px; height: 64px; margin-bottom: 12px; opacity: 0.5;}
+        .painel-totais {display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px;}
+        .card-total {background: #1A1A1A; border-radius: 14px; padding: 14px; border: 1px solid #2A2A2A;}
+        .rotulo {font-size: 12px; color: #888; margin-bottom: 4px;}
+        .valor {font-size: 19px; font-weight: 800;}
+        .verde {color: #00E676;} .laranja {color: #FF9800;} .azul {color: #2196F3;}
+
+        .cartao {background: #1A1A1A; border-radius: 16px; padding: 20px; margin-bottom: 20px; border: 1px solid #2A2A2A;}
+        .cartao h3 {font-size: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; font-weight: 700;}
+
+        .item-corrida {background: #222; border-radius: 12px; padding: 13px; margin-bottom: 10px; border-left: 3px solid #FF9800;}
+        .linha {display: flex; justify-content: space-between; margin: 3px 0; font-size: 14px; color: #ddd;}
+        .valor-corrida {font-size: 16px; font-weight: 800; color: #00E676;}
+        .tag-app {display: inline-block; background: rgba(255,152,0,0.12); color: #FF9800; padding: 1px 7px; border-radius: 9px; font-size: 11px; font-weight: 600;}
+        .tag-per {display: inline-block; background: rgba(33,150,243,0.12); color: #64B5F6; padding: 1px 7px; border-radius: 9px; font-size: 11px; font-weight: 600; margin-left: 4px;}
+
+        .bloco-botoes {display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;}
+        .escondido {display: none !important;}
+        .aviso {text-align: center; padding: 30px 10px; color: #777; font-size: 14px;}
+        input[type="file"] {display: none;}
+        .botao-arquivo {display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 15px; border-radius: 12px; background: #1A1A1A; border: 1px solid #333; color: #fff; cursor: pointer; font-size: 15px; font-weight: 600;}
     </style>
 </head>
 <body>
 
-<!-- TELA DE LOGIN -->
+<!-- TELA LOGIN -->
 <div id="telaLogin" class="tela-login">
     <div class="fundo-tela"></div>
     <div class="caixa">
@@ -125,35 +129,32 @@
     </div>
 </div>
 
-<!-- TELA PRINCIPAL COM MENU -->
+<!-- TELA PRINCIPAL -->
 <div id="telaPrincipal" class="tela-principal">
-    <!-- ✅ MENU FIXO NO TOPO -->
-    <nav class="menu-superior">
-        <div class="menu-logo">
-            <span class="menu-movu">MOVU</span><span class="menu-digital">digital</span>
+    <!-- MENU COMPACTO -->
+    <header class="cabecalho">
+        <button class="btn-voltar" id="btnVoltar" onclick="voltarMenu()">← Voltar</button>
+        <div class="logo-mini" id="logoTopo">
+            <span class="mini-movu">MOVU</span><span class="mini-digital">digital</span>
         </div>
-        <div class="menu-navegacao">
-            <button class="menu-item ativo" onclick="mostrarAba('corridas')">
-                🚗 Lançar Corridas
-            </button>
-            <button class="menu-item" onclick="mostrarAba('relatorios')">
-                📊 Relatórios
-            </button>
-        </div>
+        <nav class="menu-principal" id="menuTopo">
+            <button class="menu-item ativo" onclick="abrirAba('corridas')">🚗 Corridas</button>
+            <button class="menu-item" onclick="abrirAba('relatorios')">📊 Relatórios</button>
+            <button class="menu-item" onclick="abrirAba('backup')">💾 Backup</button>
+        </nav>
         <button class="btn-sair" onclick="sair()">Sair</button>
-    </nav>
+    </header>
 
     <div class="ola">Olá, <b id="nomeUsuario">Motorista</b> 👋</div>
-
     <div class="container">
 
-        <!-- ✅ ABA: LANÇAR CORRIDAS (JÁ EXISTENTE) -->
-        <div id="abaCorridas" class="aba visivel">
+        <!-- ABA LANÇAR CORRIDAS -->
+        <div id="abaCorridas" class="aba ativa">
             <div class="painel-totais">
-                <div class="card-total"><div class="rotulo">Hoje</div><div class="valor verde" id="valorDia">R$ 0,00</div></div>
-                <div class="card-total"><div class="rotulo">Semana</div><div class="valor laranja" id="valorSemana">R$ 0,00</div></div>
-                <div class="card-total"><div class="rotulo">Mês</div><div class="valor azul" id="valorMes">R$ 0,00</div></div>
-                <div class="card-total"><div class="rotulo">Média p/ KM</div><div class="valor" id="mediaKm">R$ 0,00</div></div>
+                <div class="card-total"><div class="rotulo">Hoje</div><div class="valor verde" id="vHoje">R$ 0,00</div></div>
+                <div class="card-total"><div class="rotulo">Semana</div><div class="valor laranja" id="vSemana">R$ 0,00</div></div>
+                <div class="card-total"><div class="rotulo">Mês</div><div class="valor azul" id="vMes">R$ 0,00</div></div>
+                <div class="card-total"><div class="rotulo">Média p/Km</div><div class="valor" id="vMedia">R$ 0,00</div></div>
             </div>
 
             <div class="cartao">
@@ -162,42 +163,64 @@
                 <div class="grupo-input"><label>🎯 Destino</label><input type="text" id="destino" placeholder="Para onde foi?"></div>
                 <div class="grupo-input"><label>📱 Aplicativo</label>
                     <select id="app">
-                        <option value="Uber">🚗 Uber</option>
-                        <option value="99">🚕 99</option>
-                        <option value="Maxim">🚙 Maxim</option>
-                        <option value="Zero16">⚡ Zero16</option>
-                        <option value="Ifood">🛵 iFood Entregas</option>
-                        <option value="Particular">👤 Particular</option>
+                        <option>🚗 Uber</option>
+                        <option>🚕 99</option>
+                        <option>🚙 Maxim</option>
+                        <option>⚡ Zero16</option>
+                        <option>🛵 iFood</option>
+                        <option>👤 Particular</option>
                     </select>
                 </div>
                 <div class="grupo-input"><label>⏰ Período</label>
                     <select id="periodo">
-                        <option value="Manhã">🌅 Manhã</option>
-                        <option value="Tarde">🌇 Tarde</option>
-                        <option value="Noite">🌙 Noite</option>
+                        <option>🌅 Manhã</option>
+                        <option>🌇 Tarde</option>
+                        <option>🌙 Noite</option>
                     </select>
                 </div>
-                <div class="grupo-input"><label>💵 Valor da Corrida (R$)</label><input type="number" step="0.01" id="valor" placeholder="0,00"></div>
-                <div class="grupo-input"><label>🛣️ Km Rodados</label><input type="number" step="0.1" id="km" placeholder="0,0 km"></div>
-                <div class="grupo-input"><label>📅 Data / Horário</label><input type="datetime-local" id="dataHora"></div>
-                <div class="grupo-input"><label>📝 Observações</label><textarea id="obs" rows="2" placeholder="Ex: pedágio, valor extra..."></textarea></div>
+                <div class="grupo-input"><label>💵 Valor (R$)</label><input type="number" step="0.01" id="valor" placeholder="0,00"></div>
+                <div class="grupo-input"><label>🛣️ Km rodados</label><input type="number" step="0.1" id="km" placeholder="0,0"></div>
+                <div class="grupo-input"><label>📅 Data/Hora</label><input type="datetime-local" id="dataHora"></div>
+                <div class="grupo-input"><label>📝 Observação</label><textarea id="obs" rows="2" placeholder="Opcional"></textarea></div>
                 <button class="btn-laranja" onclick="salvarCorrida()">💾 SALVAR CORRIDA</button>
             </div>
 
             <div class="cartao">
-                <h3>📋 Últimas Corridas</h3>
-                <div id="listaCorridas"><p style="color:#888; font-size:14px;">Nenhuma corrida cadastrada ainda.</p></div>
+                <h3>📋 Corridas Salvas</h3>
+                <div id="listaCorridas"><div class="aviso">Nenhuma corrida cadastrada ainda.</div></div>
             </div>
         </div>
 
-        <!-- ✅ ABA: RELATÓRIOS (NOVA) -->
+        <!-- ABA RELATÓRIOS -->
         <div id="abaRelatorios" class="aba">
             <div class="cartao">
                 <h3>📊 Relatórios</h3>
-                <div class="relatorio-vazio">
-                    <p>Área de relatórios pronta para uso.</p>
-                    <p style="font-size: 13px; margin-top: 8px;">Em breve: resumos, gráficos e exportação.</p>
+                <div class="painel-totais">
+                    <div class="card-total"><div class="rotulo">Total Corridas</div><div class="valor" id="qtdCorridas">0</div></div>
+                    <div class="card-total"><div class="rotulo">Total Ganhos</div><div class="valor verde" id="totalGanhos">R$ 0,00</div></div>
+                    <div class="card-total"><div class="rotulo">Total Km</div><div class="valor laranja" id="totalKm">0 km</div></div>
+                    <div class="card-total"><div class="rotulo">Média Diária</div><div class="valor azul" id="mediaDiaria">R$ 0,00</div></div>
                 </div>
+                <p style="font-size:13px; color:#888; margin-top:8px;">Mais gráficos e filtros em breve!</p>
+            </div>
+        </div>
+
+        <!-- ABA BACKUP / RESTAURAÇÃO -->
+        <div id="abaBackup" class="aba">
+            <div class="cartao">
+                <h3>💾 Fazer Backup</h3>
+                <p style="font-size:14px; color:#aaa; margin-bottom:15px;">Baixe um arquivo com TODOS os dados para guardar ou transferir.</p>
+                <button class="btn-laranja" onclick="exportarBackup()">⬇️ BAIXAR CÓPIA DE SEGURANÇA</button>
+            </div>
+
+            <div class="cartao">
+                <h3>🔄 Restaurar Backup</h3>
+                <p style="font-size:14px; color:#aaa; margin-bottom:15px;">Selecione o arquivo de backup para voltar os dados.</p>
+                <label class="botao-arquivo">
+                    📂 Escolher Arquivo
+                    <input type="file" id="entradaBackup" accept=".json">
+                </label>
+                <button class="btn-laranja btn-verde" style="margin-top:10px;" onclick="importarBackup()">✅ RESTAURAR DADOS</button>
             </div>
         </div>
 
@@ -205,59 +228,164 @@
 </div>
 
 <script>
-// GERENCIAMENTO DAS ABAS
-function mostrarAba(nome) {
-    // Esconde todas
-    document.querySelectorAll('.aba').forEach(aba => aba.classList.remove('visivel'));
-    document.querySelectorAll('.menu-item').forEach(item => {
-        item.classList.remove('ativo', 'ativo-rel');
+// ==============================================
+// SALVAMENTO CORRIGIDO E CONFIÁVEL
+// ==============================================
+const CHAVE = 'movu_dados_app';
+
+function pegarDados() {
+    try {
+        const bruto = localStorage.getItem(CHAVE);
+        return bruto ? JSON.parse(bruto) : [];
+    } catch { return []; }
+}
+
+function salvarDados(lista) {
+    try {
+        localStorage.setItem(CHAVE, JSON.stringify(lista));
+        return true;
+    } catch {
+        alert('❌ Não foi possível salvar — verifique o espaço do navegador');
+        return false;
+    }
+}
+
+// ==============================================
+// NAVEGAÇÃO COM MENU COMPACTO E BOTÃO VOLTAR
+// ==============================================
+function abrirAba(nome) {
+    // Esconde tudo
+    document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
+    document.querySelectorAll('.menu-item').forEach(b => {
+        b.classList.remove('ativo','ativo-rel');
     });
-    // Mostra a selecionada
+    // Mostra aba selecionada
     if (nome === 'corridas') {
-        document.getElementById('abaCorridas').classList.add('visivel');
+        document.getElementById('abaCorridas').classList.add('ativa');
         document.querySelectorAll('.menu-item')[0].classList.add('ativo');
-    }
-    if (nome === 'relatorios') {
-        document.getElementById('abaRelatorios').classList.add('visivel');
+    } else if (nome === 'relatorios') {
+        document.getElementById('abaRelatorios').classList.add('ativa');
         document.querySelectorAll('.menu-item')[1].classList.add('ativo-rel');
+    } else if (nome === 'backup') {
+        document.getElementById('abaBackup').classList.add('ativa');
+        document.querySelectorAll('.menu-item')[2].classList.add('ativo-rel');
     }
+    // MOSTRA BOTÃO VOLTAR E ESCONDE MENU
+    document.getElementById('btnVoltar').classList.add('mostrar');
+    document.getElementById('menuTopo').classList.add('escondido');
 }
 
-function pegarCorridas() { try { const d=localStorage.getItem('movu_corridas'); return d?JSON.parse(d):[]; } catch { return []; } }
-function salvarCorridas(l) { try { localStorage.setItem('movu_corridas',JSON.stringify(l)); return true; } catch { alert('❌ Erro ao salvar'); return false; } }
-function trocarForm() { document.getElementById('formLogin').classList.toggle('escondido'); document.getElementById('formCadastro').classList.toggle('escondido'); }
-function entrar() { const u=document.getElementById('usuario').value.trim(),s=document.getElementById('senha').value; if(!u||!s)return alert('Preencha tudo!'); localStorage.setItem('movu_usuario',u.split(' ')[0]); mostrarApp(); }
-function cadastrar() { const n=document.getElementById('nomeCompleto').value.trim(),u=document.getElementById('novoUsuario').value.trim(),s=document.getElementById('novaSenha').value; if(!n||!u||s.length<6)return alert('Preencha corretamente!'); localStorage.setItem('movu_usuario',n.split(' ')[0]); alert('✅ Cadastrado!'); mostrarApp(); }
-function mostrarApp() { document.getElementById('telaLogin').style.display='none'; document.getElementById('telaPrincipal').style.display='block'; document.getElementById('nomeUsuario').innerText=localStorage.getItem('movu_usuario')||'Motorista'; carregarCorridas(); atualizarTotais(); }
-function sair() { localStorage.removeItem('movu_usuario'); window.location.reload(); }
+function voltarMenu() {
+    document.querySelectorAll('.aba').forEach(a => a.classList.remove('ativa'));
+    document.getElementById('abaCorridas').classList.add('ativa');
+    document.querySelectorAll('.menu-item').forEach(b => b.classList.remove('ativo','ativo-rel'));
+    document.querySelectorAll('.menu-item')[0].classList.add('ativo');
+    // VOLTA MENU E ESCONDE BOTÃO VOLTAR
+    document.getElementById('btnVoltar').classList.remove('mostrar');
+    document.getElementById('menuTopo').classList.remove('escondido');
+}
 
+// ==============================================
+// LOGIN / CADASTRO
+// ==============================================
+function trocarForm() {
+    document.getElementById('formLogin').classList.toggle('escondido');
+    document.getElementById('formCadastro').classList.toggle('escondido');
+}
+
+function entrar() {
+    const u = document.getElementById('usuario').value.trim();
+    const s = document.getElementById('senha').value;
+    if (!u || !s) return alert('Preencha usuário e senha!');
+    localStorage.setItem('movu_usuario', u.split(' ')[0]);
+    mostrarApp();
+}
+
+function cadastrar() {
+    const n = document.getElementById('nomeCompleto').value.trim();
+    const u = document.getElementById('novoUsuario').value.trim();
+    const s = document.getElementById('novaSenha').value;
+    if (!n || !u || s.length < 6) return alert('Preencha tudo! Senha mínima 6 caracteres.');
+    localStorage.setItem('movu_usuario', n.split(' ')[0]);
+    alert('✅ Cadastrado com sucesso!');
+    mostrarApp();
+}
+
+function mostrarApp() {
+    document.getElementById('telaLogin').style.display = 'none';
+    document.getElementById('telaPrincipal').style.display = 'block';
+    document.getElementById('nomeUsuario').innerText = localStorage.getItem('movu_usuario') || 'Motorista';
+    carregarLista();
+    atualizarTotais();
+}
+
+function sair() {
+    localStorage.removeItem('movu_usuario');
+    window.location.reload();
+}
+
+// ==============================================
+// LANÇAMENTO E LISTAGEM
+// ==============================================
 function salvarCorrida() {
-    const o=document.getElementById('origem').value.trim(),d=document.getElementById('destino').value.trim(),a=document.getElementById('app').value,p=document.getElementById('periodo').value,v=parseFloat(document.getElementById('valor').value),k=parseFloat(document.getElementById('km').value)||0;
-    let dh=document.getElementById('dataHora').value; if(!dh){const ag=new Date(),o=ag.getTimezoneOffset()*6e4;dh=new Date(ag-o).toISOString().slice(0,16);}
-    const obs=document.getElementById('obs').value.trim(); if(!o||!d||isNaN(v))return alert('Preencha Origem, Destino e Valor!');
-    const c={id:Date.now(),origem:o,destino:d,app:a,periodo:p,valor:v,km:k,dataHora:dh,obs};
-    let cs=pegarCorridas(); cs.unshift(c); if(!salvarCorridas(cs))return;
-    document.getElementById('origem').value='';document.getElementById('destino').value='';document.getElementById('valor').value='';document.getElementById('km').value='';document.getElementById('obs').value='';
-    carregarCorridas();atualizarTotais();alert('✅ Corrida salva!');
-}
-function carregarCorridas() {
-    const l=document.getElementById('listaCorridas'),cs=pegarCorridas();
-    if(!cs.length)return l.innerHTML='<p style="color:#888; font-size:14px;">Nenhuma corrida cadastrada ainda.</p>';
-    l.innerHTML=cs.map(c=>`<div class="item-corrida"><div class="linha"><span>📍 ${c.origem} → ${c.destino}</span><span class="valor-corrida">R$ ${c.valor.toFixed(2)}</span></div><div class="linha"><span><span class="tag-app">${c.app}</span><span class="tag-per">${c.periodo}</span></span><span>${c.km>0?c.km.toFixed(1)+' km':'—'}</span></div><div class="linha"><span>${c.dataHora.replace('T',' às ')}</span></div>${c.obs?`<div class="linha"><span>📝 ${c.obs}</span></div>`:''}</div>`).join('');
-}
-function atualizarTotais() {
-    const cs=pegarCorridas(),hoje=new Date().toISOString().slice(0,10),ag=new Date();
-    const sem=new Date(ag);sem.setDate(ag.getDate()-ag.getDay());const semS=sem.toISOString().slice(0,10);
-    const mes=new Date(ag.getFullYear(),ag.getMonth(),1),mesS=mes.toISOString().slice(0,10);
-    let vd=0,vs=0,vm=0,km=0;
-    cs.forEach(c=>{const d=c.dataHora.slice(0,10);if(d===hoje)vd+=c.valor;if(d>=semS)vs+=c.valor;if(d>=mesS)vm+=c.valor;if(c.km>0)km+=c.km;});
-    const mkm=km>0?(vd/km):0;
-    document.getElementById('valorDia').innerText=`R$ ${vd.toFixed(2)}`;
-    document.getElementById('valorSemana').innerText=`R$ ${vs.toFixed(2)}`;
-    document.getElementById('valorMes').innerText=`R$ ${vm.toFixed(2)}`;
-    document.getElementById('mediaKm').innerText=`R$ ${mkm.toFixed(2)}`;
-}
-</script>
+    const origem = document.getElementById('origem').value.trim();
+    const destino = document.getElementById('destino').value.trim();
+    const app = document.getElementById('app').value;
+    const periodo = document.getElementById('periodo').value;
+    const valor = parseFloat(document.getElementById('valor').value);
+    const km = parseFloat(document.getElementById('km').value) || 0;
+    let dataHora = document.getElementById('dataHora').value;
+    const obs = document.getElementById('obs').value.trim();
 
-</body>
-</html>
+    if (!origem || !destino || isNaN(valor)) return alert('Preencha Origem, Destino e Valor corretamente!');
+    if (!dataHora) {
+        const agora = new Date();
+        const diferenca = agora.getTimezoneOffset() * 60000;
+        dataHora = new Date(agora - diferenca).toISOString().slice(0,16);
+    }
+
+    const corrida = {
+        id: Date.now(),
+        origem, destino, app, periodo, valor, km, dataHora, obs
+    };
+
+    const lista = pegarDados();
+    lista.unshift(corrida);
+
+    if (!salvarDados(lista)) return;
+
+    // Limpa formulário
+    document.getElementById('origem').value = '';
+    document.getElementById('destino').value = '';
+    document.getElementById('valor').value = '';
+    document.getElementById('km').value = '';
+    document.getElementById('obs').value = '';
+
+    carregarLista();
+    atualizarTotais();
+    alert('✅ Corrida salva com sucesso!');
+}
+
+function carregarLista() {
+    const lista = pegarDados();
+    const alvo = document.getElementById('listaCorridas');
+    if (!lista.length) {
+        alvo.innerHTML = '<div class="aviso">Nenhuma corrida cadastrada ainda.</div>';
+        return;
+    }
+    alvo.innerHTML = lista.map(c => `
+        <div class="item-corrida">
+            <div class="linha"><span>📍 ${c.origem} → ${c.destino}</span><span class="valor-corrida">R$ ${c.valor.toFixed(2)}</span></div>
+            <div class="linha"><span><span class="tag-app">${c.app}</span><span class="tag-per">${c.periodo}</span></span><span>${c.km > 0 ? c.km.toFixed(1)+' km' : '—'}</span></div>
+            <div class="linha"><span>${c.dataHora.replace('T',' às ')}</span></div>
+            ${c.obs ? `<div class="linha"><span>📝 ${c.obs}</span></div>` : ''}
+        </div>
+    `).join('');
+}
+
+function atualizarTotais() {
+    const lista = pegarDados();
+    const hoje = new Date().toISOString().slice(0,10);
+    const agora = new Date();
+    const inicioSemana = new Date(agora.setDate(agora.getDate() - agora.getDay())).toISOString().slice(0,10);
+    const inicioMes = new Date(ag
