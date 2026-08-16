@@ -3,70 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOVU - O App do Motorista</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <title>MOVU digital - O App do Motorista</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
-        body {background: #000; min-height: 100vh; color: #fff;}
-        .tela-login {min-height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; padding: 20px;}
-        .fundo-tela {position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, #000 100%); z-index: 1;}
-        .caixa {position: relative; z-index: 2; width: 100%; max-width: 420px; background: rgba(30,30,30,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,193,7,0.15); border-radius: 24px; padding: 30px 25px; text-align: center;}
+        body {background: #0F0F0F; min-height: 100vh; color: #fff;}
+
+        /* TELA LOGIN */
+        .tela-login {min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;}
+        .fundo-tela {position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, #000 100%); z-index: 1;}
+        .caixa {position: relative; z-index: 2; width: 100%; max-width: 420px; background: rgba(30,30,30,0.7); backdrop-filter: blur(20px); border-radius: 24px; padding: 35px 25px; text-align: center;}
         
-        .logo {margin-bottom: 24px;}
-        .logo-img {width: 220px; height: auto; margin-bottom: 12px; border-radius: 8px;}
-        .logo-slogan {color: #cccccc; font-size: 11px; letter-spacing: 1px; line-height: 1.5;}
-        .logo-slogan span {color: #FFC107;}
+        /* ✅ LOGO — EXATAMENTE COMO VOCÊ APROVOU */
+        .logo {margin-bottom: 28px; white-space: nowrap;}
+        .logo-movu {font-size: 64px; font-weight: 900; color: #FF9800; text-shadow: 2px 3px 4px rgba(0,0,0,0.4);}
+        .logo-digital {font-size: 32px; font-weight: 700; color: #2196F3; margin-left: 6px; text-shadow: 2px 3px 4px rgba(0,0,0,0.4);}
+        .logo-slogan {color: #ccc; font-size: 11px; letter-spacing: 1px; margin-top: 8px; text-transform: uppercase;}
+        .logo-slogan span {color: #FF9800;}
 
         .grupo-input {margin-bottom: 16px; text-align: left;}
         .grupo-input label {font-size: 13px; color: #aaa; margin-bottom: 6px; display: block;}
-        .grupo-input input, .grupo-input select {width: 100%; padding: 13px 15px; background: #111; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 15px; outline: none;}
-        .grupo-input input:focus {border-color: #FFC107; box-shadow: 0 0 0 2px rgba(255,193,7,0.15);}
+        .grupo-input input {width: 100%; padding: 13px 15px; background: #1A1A1A; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 15px; outline: none; transition: .2s;}
+        .grupo-input input:focus {border-color: #FF9800; box-shadow: 0 0 0 2px rgba(255,152,0,0.15);}
         
-        .btn-laranja {width: 100%; padding: 15px; background: linear-gradient(90deg, #FFC107, #FF9800); border: none; border-radius: 12px; color: #000; font-size: 16px; font-weight: 800; cursor: pointer; transition: 0.3s;}
-        .btn-laranja:hover {transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,152,0,0.3);}
+        .btn-laranja {width: 100%; padding: 15px; background: linear-gradient(90deg, #FF9800, #FF6F00); border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; transition: .3s;}
+        .btn-laranja:hover {transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,111,0,0.3);}
         
         .link-troca {margin-top: 20px; font-size: 14px; color: #888;}
-        .link-troca a {color: #FFC107; text-decoration: none; font-weight: 600;}
+        .link-troca a {color: #FF9800; text-decoration: none; font-weight: 600;}
+
+        /* ✅ MENU DE NAVEGAÇÃO */
+        .menu-superior {background: #151515; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #2A2A2A;}
+        .menu-logo {font-size: 20px; font-weight: 900; white-space: nowrap;}
+        .menu-movu {color: #FF9800;}
+        .menu-digital {font-size: 14px; color: #2196F3; margin-left: 3px; font-weight: 700;}
         
+        .menu-navegacao {display: flex; gap: 8px;}
+        .menu-item {display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: transparent; border: none; border-radius: 10px; color: #aaa; font-size: 14px; font-weight: 600; cursor: pointer; transition: .2s;}
+        .menu-item.ativo {background: rgba(255,152,0,0.1); color: #FF9800;}
+        .menu-item:hover {background: rgba(255,152,0,0.08); color: #fff;}
+        .menu-item.ativo-rel {background: rgba(33,150,243,0.1); color: #2196F3;}
+        .menu-item.ativo-rel:hover {background: rgba(33,150,243,0.15);}
+
+        .btn-sair {background: rgba(255,82,82,0.1); border: none; padding: 8px 14px; border-radius: 8px; color: #FF5252; font-size: 14px; cursor: pointer; font-weight: 600; transition: .2s;}
+        .btn-sair:hover {background: rgba(255,82,82,0.2);}
+        
+        /* CONTEÚDO DAS TELAS */
         .tela-principal {display: none; padding-bottom: 50px;}
-        .cabecalho {background: #111; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #222;}
-        .cabecalho-logo {display: flex; align-items: center; gap: 10px;}
-        .cabecalho-logo-img {width: 44px; height: auto; border-radius: 4px;}
-        .cabecalho h2 {font-size: 20px; font-weight: 800; background: linear-gradient(90deg, #FFC107, #FF9800); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 2px;}
-        .btn-sair {background: none; border: none; color: #ff6666; font-size: 15px; cursor: pointer; font-weight: 600;}
-        
         .ola {padding: 20px; font-size: 18px;}
-        .ola b {color: #FFC107;}
+        .ola b {color: #FF9800;}
         .container {padding: 0 16px;}
+
+        .aba {display: none;}
+        .aba.visivel {display: block;}
         
         .painel-totais {display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px;}
-        .card-total {background: #111; border-radius: 14px; padding: 15px; border: 1px solid #222;}
-        .card-total .rotulo {font-size: 12px; color: #888; margin-bottom: 4px;}
-        .card-total .valor {font-size: 20px; font-weight: 800;}
-        .verde {color: #00ff88;} .dourado {color: #FFC107;} .azul {color: #00aaff;}
+        .card-total {background: #1A1A1A; border-radius: 14px; padding: 15px; border: 1px solid #2A2A2A;}
+        .rotulo {font-size: 12px; color: #888; margin-bottom: 4px;}
+        .valor {font-size: 20px; font-weight: 800;}
+        .verde {color: #00ff88;} .laranja {color: #FF9800;} .azul {color: #2196F3;}
         
-        .cartao {background: #111; border-radius: 16px; padding: 22px; margin-bottom: 22px; border: 1px solid #222;}
+        .cartao {background: #1A1A1A; border-radius: 16px; padding: 22px; margin-bottom: 22px; border: 1px solid #2A2A2A;}
         .cartao h3 {font-size: 17px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; font-weight: 700;}
-        .cartao h3::before {content: "🚗";}
         
-        .item-corrida {background: #181818; border-radius: 12px; padding: 14px; margin-bottom: 10px; border-left: 3px solid #FFC107;}
-        .item-corrida .linha {display: flex; justify-content: space-between; margin: 4px 0; font-size: 14px; color: #ddd;}
-        .item-corrida .valor {font-size: 17px; font-weight: 800; color: #00ff88;}
-        .tag-app {display: inline-block; background: rgba(255,193,7,0.1); color: #FFC107; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700;}
-        .tag-per {display: inline-block; background: rgba(0,170,255,0.1); color: #88ddff; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; margin-left: 6px;}
+        .grupo-input {margin-bottom: 16px; text-align: left;}
+        .grupo-input select {width: 100%; padding: 13px 15px; background: #1A1A1A; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 15px; outline: none;}
+        
+        .item-corrida {background: #222; border-radius: 12px; padding: 14px; margin-bottom: 10px; border-left: 3px solid #FF9800;}
+        .linha {display: flex; justify-content: space-between; margin: 4px 0; font-size: 14px; color: #ddd;}
+        .valor-corrida {font-size: 17px; font-weight: 800; color: #00ff88;}
+        .tag-app {display: inline-block; background: rgba(255,152,0,0.1); color: #FF9800; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700;}
+        .tag-per {display: inline-block; background: rgba(33,150,243,0.1); color: #64B5F6; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; margin-left: 6px;}
         
         .escondido {display: none !important;}
+
+        /* ÁREA DE RELATÓRIOS */
+        .relatorio-vazio {text-align: center; padding: 40px 20px; color: #777;}
+        .relatorio-vazio svg {width: 64px; height: 64px; margin-bottom: 12px; opacity: 0.5;}
     </style>
 </head>
 <body>
 
-<!-- TELA LOGIN -->
+<!-- TELA DE LOGIN -->
 <div id="telaLogin" class="tela-login">
     <div class="fundo-tela"></div>
     <div class="caixa">
         <div class="logo">
-            <!-- ✅ LOGO OFICIAL — já pronta! -->
-            <img src="https://i.imgur.com/T8ZxWtL.png" alt="MOVU" class="logo-img">
+            <span class="logo-movu">MOVU</span><span class="logo-digital">digital</span>
             <p class="logo-slogan">MOVER VOCÊ. <span>UNIR DESTINOS.</span> TRANSFORMAR JORNADAS.</p>
         </div>
 
@@ -102,103 +125,112 @@
     </div>
 </div>
 
-<!-- TELA PRINCIPAL -->
+<!-- TELA PRINCIPAL COM MENU -->
 <div id="telaPrincipal" class="tela-principal">
-    <div class="cabecalho">
-        <div class="cabecalho-logo">
-            <img src="https://i.imgur.com/T8ZxWtL.png" alt="MOVU" class="cabecalho-logo-img">
-            <h2>MOVU</h2>
+    <!-- ✅ MENU FIXO NO TOPO -->
+    <nav class="menu-superior">
+        <div class="menu-logo">
+            <span class="menu-movu">MOVU</span><span class="menu-digital">digital</span>
         </div>
-        <button class="btn-sair" onclick="sair()">Sair ←</button>
-    </div>
+        <div class="menu-navegacao">
+            <button class="menu-item ativo" onclick="mostrarAba('corridas')">
+                🚗 Lançar Corridas
+            </button>
+            <button class="menu-item" onclick="mostrarAba('relatorios')">
+                📊 Relatórios
+            </button>
+        </div>
+        <button class="btn-sair" onclick="sair()">Sair</button>
+    </nav>
 
     <div class="ola">Olá, <b id="nomeUsuario">Motorista</b> 👋</div>
 
     <div class="container">
-        <div class="painel-totais">
-            <div class="card-total">
-                <div class="rotulo">Hoje</div>
-                <div class="valor verde" id="valorDia">R$ 0,00</div>
+
+        <!-- ✅ ABA: LANÇAR CORRIDAS (JÁ EXISTENTE) -->
+        <div id="abaCorridas" class="aba visivel">
+            <div class="painel-totais">
+                <div class="card-total"><div class="rotulo">Hoje</div><div class="valor verde" id="valorDia">R$ 0,00</div></div>
+                <div class="card-total"><div class="rotulo">Semana</div><div class="valor laranja" id="valorSemana">R$ 0,00</div></div>
+                <div class="card-total"><div class="rotulo">Mês</div><div class="valor azul" id="valorMes">R$ 0,00</div></div>
+                <div class="card-total"><div class="rotulo">Média p/ KM</div><div class="valor" id="mediaKm">R$ 0,00</div></div>
             </div>
-            <div class="card-total">
-                <div class="rotulo">Semana</div>
-                <div class="valor dourado" id="valorSemana">R$ 0,00</div>
+
+            <div class="cartao">
+                <h3>🚗 Nova Corrida</h3>
+                <div class="grupo-input"><label>📍 Origem</label><input type="text" id="origem" placeholder="De onde saiu?"></div>
+                <div class="grupo-input"><label>🎯 Destino</label><input type="text" id="destino" placeholder="Para onde foi?"></div>
+                <div class="grupo-input"><label>📱 Aplicativo</label>
+                    <select id="app">
+                        <option value="Uber">🚗 Uber</option>
+                        <option value="99">🚕 99</option>
+                        <option value="Maxim">🚙 Maxim</option>
+                        <option value="Zero16">⚡ Zero16</option>
+                        <option value="Ifood">🛵 iFood Entregas</option>
+                        <option value="Particular">👤 Particular</option>
+                    </select>
+                </div>
+                <div class="grupo-input"><label>⏰ Período</label>
+                    <select id="periodo">
+                        <option value="Manhã">🌅 Manhã</option>
+                        <option value="Tarde">🌇 Tarde</option>
+                        <option value="Noite">🌙 Noite</option>
+                    </select>
+                </div>
+                <div class="grupo-input"><label>💵 Valor da Corrida (R$)</label><input type="number" step="0.01" id="valor" placeholder="0,00"></div>
+                <div class="grupo-input"><label>🛣️ Km Rodados</label><input type="number" step="0.1" id="km" placeholder="0,0 km"></div>
+                <div class="grupo-input"><label>📅 Data / Horário</label><input type="datetime-local" id="dataHora"></div>
+                <div class="grupo-input"><label>📝 Observações</label><textarea id="obs" rows="2" placeholder="Ex: pedágio, valor extra..."></textarea></div>
+                <button class="btn-laranja" onclick="salvarCorrida()">💾 SALVAR CORRIDA</button>
             </div>
-            <div class="card-total">
-                <div class="rotulo">Mês</div>
-                <div class="valor azul" id="valorMes">R$ 0,00</div>
-            </div>
-            <div class="card-total">
-                <div class="rotulo">Média p/ KM</div>
-                <div class="valor" id="mediaKm">R$ 0,00</div>
+
+            <div class="cartao">
+                <h3>📋 Últimas Corridas</h3>
+                <div id="listaCorridas"><p style="color:#888; font-size:14px;">Nenhuma corrida cadastrada ainda.</p></div>
             </div>
         </div>
 
-        <div class="cartao">
-            <h3>Nova Corrida</h3>
-            <div class="grupo-input">
-                <label>📍 Origem</label>
-                <input type="text" id="origem" placeholder="De onde saiu?">
+        <!-- ✅ ABA: RELATÓRIOS (NOVA) -->
+        <div id="abaRelatorios" class="aba">
+            <div class="cartao">
+                <h3>📊 Relatórios</h3>
+                <div class="relatorio-vazio">
+                    <p>Área de relatórios pronta para uso.</p>
+                    <p style="font-size: 13px; margin-top: 8px;">Em breve: resumos, gráficos e exportação.</p>
+                </div>
             </div>
-            <div class="grupo-input">
-                <label>🎯 Destino</label>
-                <input type="text" id="destino" placeholder="Para onde foi?">
-            </div>
-            <div class="grupo-input">
-                <label>📱 Aplicativo</label>
-                <select id="app">
-                    <option value="Uber">🚗 Uber</option>
-                    <option value="99">🚕 99</option>
-                    <option value="Maxim">🚙 Maxim</option>
-                    <option value="Zero16">⚡ Zero16</option>
-                    <option value="Ifood">🛵 iFood Entregas</option>
-                    <option value="Particular">👤 Particular</option>
-                </select>
-            </div>
-            <div class="grupo-input">
-                <label>⏰ Período</label>
-                <select id="periodo">
-                    <option value="Manhã">🌅 Manhã</option>
-                    <option value="Tarde">🌇 Tarde</option>
-                    <option value="Noite">🌙 Noite</option>
-                </select>
-            </div>
-            <div class="grupo-input">
-                <label>💵 Valor da Corrida (R$)</label>
-                <input type="number" step="0.01" id="valor" placeholder="0,00">
-            </div>
-            <div class="grupo-input">
-                <label>🛣️ Km Rodados</label>
-                <input type="number" step="0.1" id="km" placeholder="0,0 km">
-            </div>
-            <div class="grupo-input">
-                <label>📅 Data / Horário</label>
-                <input type="datetime-local" id="dataHora">
-            </div>
-            <div class="grupo-input">
-                <label>📝 Observações</label>
-                <textarea id="obs" rows="2" placeholder="Ex: pedágio, valor extra..."></textarea>
-            </div>
-            <button class="btn-laranja" onclick="salvarCorrida()">💾 SALVAR CORRIDA</button>
         </div>
 
-        <div class="cartao">
-            <h3>Últimas Corridas</h3>
-            <div id="listaCorridas">
-                <p style="color:#888; font-size:14px;">Nenhuma corrida cadastrada ainda.</p>
-            </div>
-        </div>
     </div>
 </div>
 
 <script>
+// GERENCIAMENTO DAS ABAS
+function mostrarAba(nome) {
+    // Esconde todas
+    document.querySelectorAll('.aba').forEach(aba => aba.classList.remove('visivel'));
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.classList.remove('ativo', 'ativo-rel');
+    });
+    // Mostra a selecionada
+    if (nome === 'corridas') {
+        document.getElementById('abaCorridas').classList.add('visivel');
+        document.querySelectorAll('.menu-item')[0].classList.add('ativo');
+    }
+    if (nome === 'relatorios') {
+        document.getElementById('abaRelatorios').classList.add('visivel');
+        document.querySelectorAll('.menu-item')[1].classList.add('ativo-rel');
+    }
+}
+
 function pegarCorridas() { try { const d=localStorage.getItem('movu_corridas'); return d?JSON.parse(d):[]; } catch { return []; } }
 function salvarCorridas(l) { try { localStorage.setItem('movu_corridas',JSON.stringify(l)); return true; } catch { alert('❌ Erro ao salvar'); return false; } }
 function trocarForm() { document.getElementById('formLogin').classList.toggle('escondido'); document.getElementById('formCadastro').classList.toggle('escondido'); }
-function entrar() { const u=document.getElementById('usuario').value.trim(),s=document.getElementById('senha').value; if(!u||!s)return alert('Preencha tudo!'); localStorage.setItem('movu_usuario',u.split(' ')[0]); mostrarTelaPrincipal(); }
-function cadastrar() { const n=document.getElementById('nomeCompleto').value.trim(),u=document.getElementById('novoUsuario').value.trim(),s=document.getElementById('novaSenha').value; if(!n||!u||s.length<6)return alert('Preencha corretamente!'); localStorage.setItem('movu_usuario',n.split(' ')[0]); alert('✅ Cadastrado!'); mostrarTelaPrincipal(); }
-function mostrarTelaPrincipal() { document.getElementById('telaLogin').classList.add('escondido'); document.getElementById('telaPrincipal').style.display='block'; document.getElementById('nomeUsuario').innerText=localStorage.getItem('movu_usuario')||'Motorista'; carregarCorridas(); atualizarTotais(); }
-function sair() { document.getElementById('telaPrincipal').style.display='none'; document.getElementById('telaLogin').classList.remove('escondido'); document.getElementById('formLogin').classList.remove('escondido'); document.getElementById('formCadastro').classList.remove('escondido'); }
+function entrar() { const u=document.getElementById('usuario').value.trim(),s=document.getElementById('senha').value; if(!u||!s)return alert('Preencha tudo!'); localStorage.setItem('movu_usuario',u.split(' ')[0]); mostrarApp(); }
+function cadastrar() { const n=document.getElementById('nomeCompleto').value.trim(),u=document.getElementById('novoUsuario').value.trim(),s=document.getElementById('novaSenha').value; if(!n||!u||s.length<6)return alert('Preencha corretamente!'); localStorage.setItem('movu_usuario',n.split(' ')[0]); alert('✅ Cadastrado!'); mostrarApp(); }
+function mostrarApp() { document.getElementById('telaLogin').style.display='none'; document.getElementById('telaPrincipal').style.display='block'; document.getElementById('nomeUsuario').innerText=localStorage.getItem('movu_usuario')||'Motorista'; carregarCorridas(); atualizarTotais(); }
+function sair() { localStorage.removeItem('movu_usuario'); window.location.reload(); }
+
 function salvarCorrida() {
     const o=document.getElementById('origem').value.trim(),d=document.getElementById('destino').value.trim(),a=document.getElementById('app').value,p=document.getElementById('periodo').value,v=parseFloat(document.getElementById('valor').value),k=parseFloat(document.getElementById('km').value)||0;
     let dh=document.getElementById('dataHora').value; if(!dh){const ag=new Date(),o=ag.getTimezoneOffset()*6e4;dh=new Date(ag-o).toISOString().slice(0,16);}
@@ -211,7 +243,7 @@ function salvarCorrida() {
 function carregarCorridas() {
     const l=document.getElementById('listaCorridas'),cs=pegarCorridas();
     if(!cs.length)return l.innerHTML='<p style="color:#888; font-size:14px;">Nenhuma corrida cadastrada ainda.</p>';
-    l.innerHTML=cs.map(c=>`<div class="item-corrida"><div class="linha"><span>📍 ${c.origem} → ${c.destino}</span><span class="valor">R$ ${c.valor.toFixed(2)}</span></div><div class="linha"><span><span class="tag-app">${c.app}</span><span class="tag-per">${c.periodo}</span></span><span>${c.km>0?c.km.toFixed(1)+' km':'—'}</span></div><div class="linha"><span>${c.dataHora.replace('T',' às ')}</span></div>${c.obs?`<div class="linha"><span>📝 ${c.obs}</span></div>`:''}</div>`).join('');
+    l.innerHTML=cs.map(c=>`<div class="item-corrida"><div class="linha"><span>📍 ${c.origem} → ${c.destino}</span><span class="valor-corrida">R$ ${c.valor.toFixed(2)}</span></div><div class="linha"><span><span class="tag-app">${c.app}</span><span class="tag-per">${c.periodo}</span></span><span>${c.km>0?c.km.toFixed(1)+' km':'—'}</span></div><div class="linha"><span>${c.dataHora.replace('T',' às ')}</span></div>${c.obs?`<div class="linha"><span>📝 ${c.obs}</span></div>`:''}</div>`).join('');
 }
 function atualizarTotais() {
     const cs=pegarCorridas(),hoje=new Date().toISOString().slice(0,10),ag=new Date();
