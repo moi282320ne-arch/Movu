@@ -3,423 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOVU digital</title>
+    <title>MOVU digital - Controle de Corridas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        * {margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif;}
-        body {background: #0F0F0F; color: #fff; min-height: 100vh; padding-bottom: 20px;}
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+        body {background: #0F0F0F; color: #fff; min-height: 100vh; padding-bottom: 30px;}
 
         /* LOGO */
-        .logo {text-align: center; margin: 20px 0;}
-        .movu {font-size: 42px; font-weight: 900; color: #FF9800;}
-        .digital {font-size: 22px; color: #2196F3; margin-left: 3px;}
+        .logo {text-align: center; margin: 20px 0; white-space: nowrap;}
+        .logo-movu {font-size: 46px; font-weight: 900; color: #FF9800;}
+        .logo-digital {font-size: 24px; font-weight: 700; color: #2196F3; margin-left: 4px;}
+        .slogan {font-size: 11px; color: #888; margin-top: 4px; letter-spacing: 1px;}
+        .slogan span {color: #FF9800;}
 
-        /* CAIXA DE ENTRAR/CADASTAR */
-        .caixa {max-width: 400px; margin: 0 auto; padding: 20px; background: #1A1A1A; border-radius: 12px;}
-        .botoes-topo {display: flex; margin-bottom: 20px;}
-        .botao-abas {flex: 1; padding: 10px; background: transparent; border: none; color: #888; font-size: 15px; cursor: pointer; border-bottom: 2px solid transparent;}
-        .botao-abas.ativo {color: #FF9800; border-color: #FF9800; font-weight: bold;}
-
-        .grupo {margin-bottom: 14px;}
-        label {display: block; font-size: 13px; color: #aaa; margin-bottom: 5px;}
-        input {width: 100%; padding: 12px; background: #252525; border: 1px solid #444; border-radius: 8px; color: #fff; font-size: 15px;}
-        .btn {width: 100%; padding: 13px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;}
-        .btn-laranja {background: #FF9800; color: #000;}
-        .erro {color: #ff6b6b; font-size: 13px; margin: 8px 0; display: none;}
+        /* TELA LOGIN */
+        .caixa-auth {max-width: 400px; margin: 0 auto; padding: 25px; background: #1A1A1A; border-radius: 16px; border: 1px solid #333;}
+        .abas {display: flex; margin-bottom: 20px;}
+        .aba-btn {flex: 1; padding: 10px; background: transparent; border: none; color: #888; font-size: 15px; cursor: pointer; border-bottom: 2px solid transparent;}
+        .aba-btn.ativo {color: #FF9800; border-bottom-color: #FF9800; font-weight: 600;}
+        
+        .grupo {margin-bottom: 15px;}
+        label {display: block; font-size: 13px; color: #aaa; margin-bottom: 6px;}
+        input, select, textarea {width: 100%; padding: 12px; background: #222; border: 1px solid #444; border-radius: 10px; color: #fff; font-size: 15px;}
+        input:focus, select:focus {border-color: #FF9800; outline: none;}
+        .btn {width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin: 6px 0;}
+        .btn-laranja {background: linear-gradient(90deg, #FF9800, #FF6F00); color: #fff;}
+        .btn-verde {background: linear-gradient(90deg, #00C853, #009624); color: #fff;}
+        .btn-azul {background: linear-gradient(90deg, #2196F3, #1565C0); color: #fff;}
+        .erro {color: #ff6b6b; font-size: 13px; margin-top: -10px; margin-bottom: 10px; display: none;}
         .erro.mostrar {display: block;}
         .escondido {display: none !important;}
 
-        /* INFO DEPOIS DE LOGAR */
-        .barra-info {background: #1A1A1A; padding: 12px 15px; margin-bottom: 15px; border-bottom: 1px solid #333;}
-        .hora {font-size: 28px; font-weight: bold; color: #FF9800;}
-        .cidade {font-size: 14px; color: #aaa; margin: 4px 0;}
-        .frase {font-size: 14px; color: #FFCC80; font-style: italic; margin-top: 6px;}
+        /* CABEÇALHO APÓS LOGIN */
+        .info-topo {background: #1A1A1A; padding: 14px 16px; border-bottom: 1px solid #2A2A2A; margin-bottom: 15px;}
+        .dados-hora {display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 8px;}
+        .hora-grande {font-size: 28px; font-weight: 900; color: #FF9800; line-height: 1;}
+        .cidade-data {font-size: 14px; color: #aaa; line-height: 1.5;}
+        .frase-motivacao {font-size: 14px; color: #FFCC80; font-style: italic; margin-top: 6px;}
 
-        /* MENU E CONTEÚDO */
-        .menu {display: flex; gap: 6px; padding: 10px; background: #151515; position: sticky; top: 0; z-index: 99; flex-wrap: wrap; justify-content: center;}
-        .m-btn {padding: 10px 12px; background: #222; border: none; border-radius: 8px; color: #aaa; cursor: pointer;}
-        .m-btn.ativo {background: rgba(255,152,0,0.2); color: #FF9800; font-weight: bold;}
-        .m-btn.sair {color: #ff6b6b; background: rgba(255,0,0,0.1); margin-left: auto;}
+        /* MENU */
+        .menu {display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 10px 15px; background: #151515; position: sticky; top: 0; z-index: 99; border-bottom: 1px solid #2A2A2A;}
+        .menu-btn {padding: 10px 14px; background: #1E1E1E; border: none; border-radius: 10px; color: #aaa; font-size: 14px; cursor: pointer;}
+        .menu-btn.ativo {background: rgba(255,152,0,0.15); color: #FF9800; font-weight: 600;}
+        .menu-btn.azul.ativo {background: rgba(33,150,243,0.15); color: #2196F3;}
+        .btn-sair {background: rgba(239,83,80,0.1); color: #EF5350; padding: 10px 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; margin-left: auto;}
 
-        .container {padding: 12px; max-width: 500px; margin: 0 auto;}
+        .container {padding: 0 15px; max-width: 520px; margin: 0 auto;}
         .aba {display: none;}
-        .aba.aberta {display: block;}
+        .aba.mostrar {display: block;}
 
-        .cartao {background: #1A1A1A; border-radius: 10px; padding: 15px; margin-bottom: 15px;}
-        .linha {display: flex; justify-content: space-between; margin: 5px 0; font-size: 15px;}
-        .valor {font-weight: bold;}
-        .verde {color: #00E676;}
-        .azul {color: #2196F3;}
+        /* PAINÉIS E GRÁFICOS */
+        .grade {display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;}
+        .cartao {background: #1A1A1A; border-radius: 14px; padding: 14px; border: 1px solid #2A2A2A;}
+        .rotulo {font-size: 12px; color: #888; margin-bottom: 4px;}
+        .valor {font-size: 18px; font-weight: 800;}
+        .verde {color: #00E676;} .laranja {color: #FF9800;} .azul {color: #2196F3;} .roxo {color: #BB86FC;}
 
-        .item {background: #222; border-radius: 8px; padding: 10px; margin-bottom: 8px; border-left: 3px solid #FF9800;}
-        .tag {display: inline-block; background: #333; padding: 2px 6px; border-radius: 4px; font-size: 12px; margin-right: 4px;}
+        .bloco {background: #1A1A1A; border-radius: 16px; padding: 20px; margin-bottom: 20px; border: 1px solid #2A2A2A;}
+        .bloco h3 {font-size: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;}
+
+        /* GRÁFICOS EM BARRAS — SEM BIBLIOTECAS */
+        .grafico {display: flex; align-items: flex-end; justify-content: space-around; height: 160px; margin-top: 12px; border-bottom: 1px solid #333; border-left: 1px solid #333; padding: 0 8px;}
+        .barra {width: 18px; border-radius: 4px 4px 0 0; transition: height 0.3s ease;}
+        .barra-legenda {text-align: center; font-size: 10px; color: #888; margin-top: 4px; max-width: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+        .grafico-linha {display: flex; justify-content: space-around; margin-top: 8px;}
+
+        .item-corrida {background: #222; border-radius: 12px; padding: 13px; margin-bottom: 10px; border-left: 3px solid #FF9800;}
+        .linha {display: flex; justify-content: space-between; margin: 4px 0; font-size: 14px;}
+        .tag {display: inline-block; background: rgba(255,152,0,0.1); color: #FF9800; padding: 2px 6px; border-radius: 6px; font-size: 11px; margin-right: 4px;}
+        .tag-azul {background: rgba(33,150,243,0.1); color: #2196F3;}
+        .aviso {color: #777; text-align: center; padding: 30px;}
+        input[type="file"] {display: none;}
+        .destaque {background: rgba(255,152,0,0.08); border-radius: 8px; padding: 10px; margin-top: 10px;}
+        .destaque h4 {font-size: 14px; color: #FF9800; margin-bottom: 6px;}
     </style>
 </head>
 <body>
 
 <!-- LOGO -->
 <div class="logo">
-    <span class="movu">MOVU</span><span class="digital">digital</span>
+    <span class="logo-movu">MOVU</span><span class="logo-digital">digital</span>
+    <div class="slogan">MOVER VOCÊ. <span>UNIR DESTINOS.</span> TRANSFORMAR JORNADAS.</div>
 </div>
 
-<!-- TELA DE ENTRAR / CADASTRAR -->
-<div id="telaEntrar">
-    <div class="caixa">
-        <div class="botoes-topo">
-            <button class="botao-abas ativo" onclick="mudarAba('entrar')">Entrar</button>
-            <button class="botao-abas" onclick="mudarAba('cadastrar')">Cadastrar</button>
+<!-- ÁREA DE LOGIN / CADASTRO -->
+<div id="telaLogin">
+    <div class="caixa-auth">
+        <div class="abas">
+            <button class="aba-btn ativo" onclick="mudarAba('login')">Entrar</button>
+            <button class="aba-btn" onclick="mudarAba('cadastro')">Cadastrar</button>
         </div>
 
-        <!-- FORMULÁRIO ENTRAR -->
-        <div id="formEntrar">
+        <!-- FORM LOGIN -->
+        <div id="formLogin">
             <div class="grupo">
-                <label>Seu nome</label>
-                <input type="text" id="uNome" placeholder="Digite seu nome">
+                <label>Seu Nome ou E-mail</label>
+                <input type="text" id="loginUsuario" placeholder="Ex: Carlos ou carlos@email.com">
             </div>
             <div class="grupo">
                 <label>Senha</label>
-                <input type="password" id="uSenha" placeholder="Mínimo 6 letras/números">
+                <input type="password" id="loginSenha" placeholder="Mínimo 6 caracteres">
             </div>
-            <div class="erro" id="eEntrar">Nome ou senha errados!</div>
-            <button class="btn btn-laranja" onclick="fazerEntrar()">ENTRAR</button>
+            <div class="erro" id="erroLogin">Usuário ou senha incorretos!</div>
+            <button class="btn btn-laranja" onclick="fazerLogin()">ENTRAR</button>
         </div>
 
-        <!-- FORMULÁRIO CADASTRAR -->
-        <div id="formCadastrar" class="escondido">
+        <!-- FORM CADASTRO -->
+        <div id="formCadastro" class="escondido">
             <div class="grupo">
-                <label>Escolha seu nome</label>
-                <input type="text" id="cNome" placeholder="Ex: Carlos">
+                <label>Nome Completo</label>
+                <input type="text" id="cadNome" placeholder="Seu nome completo">
             </div>
             <div class="grupo">
-                <label>Crie uma senha</label>
-                <input type="password" id="cSenha" placeholder="Mínimo 6 caracteres">
+                <label>Usuário ou E-mail</label>
+                <input type="text" id="cadUsuario" placeholder="Escolha um nome ou e-mail">
             </div>
             <div class="grupo">
-                <label>Repita a senha</label>
-                <input type="password" id="cSenha2" placeholder="Mesma senha de cima">
+                <label>Criar Senha</label>
+                <input type="password" id="cadSenha" placeholder="Mínimo 6 caracteres">
             </div>
-            <div class="erro" id="eCadastrar">Preencha tudo direito!</div>
-            <button class="btn btn-laranja" onclick="fazerCadastrar()">CADASTRAR</button>
+            <div class="grupo">
+                <label>Repetir Senha</label>
+                <input type="password" id="cadSenha2" placeholder="Digite a senha novamente">
+            </div>
+            <div class="erro" id="erroCadastro">Preencha tudo corretamente!</div>
+            <button class="btn btn-laranja" onclick="fazerCadastro()">CADASTRAR</button>
         </div>
     </div>
 </div>
 
-<!-- TELA PRINCIPAL — SÓ APARECE DEPOIS DE ENTRAR -->
+<!-- ÁREA PRINCIPAL — SÓ APARECE DEPOIS DE LOGAR -->
 <div id="telaApp" class="escondido">
 
-    <!-- 🕒 HORA, CIDADE E FRASE — AQUI NO TOPO SEMPRE -->
-    <div class="barra-info">
-        <div class="hora" id="hora">00:00</div>
-        <div class="cidade">📍 Franca - SP</div>
-        <div class="frase" id="frase">Boa sorte e boas corridas! 💪</div>
+    <!-- 🕒 HORA, CIDADE E FRASE DEPOIS DE LOGAR -->
+    <div class="info-topo">
+        <div class="dados-hora">
+            <div class="hora-grande" id="hora">00:00</div>
+            <div class="cidade-data">
+                <div>📍 Franca - SP</div>
+                <div id="dataCompleta">00/00/2026</div>
+            </div>
+        </div>
+        <p class="frase-motivacao" id="frase">Boa sorte e boas corridas! 💪🚗</p>
     </div>
 
     <!-- MENU -->
     <div class="menu">
-        <button class="m-btn ativo" onclick="mostrarAba('corridas')">Corridas</button>
-        <button class="m-btn" onclick="mostrarAba('resumo')">Resumo</button>
-        <button class="m-btn" onclick="mostrarAba('salvar')">Backup</button>
-        <button class="m-btn sair" onclick="sair()">Sair</button>
+        <button class="menu-btn ativo" onclick="abrirPagina('corridas')">🚗 Corridas</button>
+        <button class="menu-btn azul" onclick="abrirPagina('relatorios')">📊 Relatórios</button>
+        <button class="menu-btn azul" onclick="abrirPagina('backup')">💾 Backup</button>
+        <button class="btn-sair" onclick="sair()">Sair</button>
     </div>
 
     <div class="container">
-
-        <!-- ABA CORRIDAS -->
-        <div id="abaCorridas" class="aba aberta">
-            <div class="cartao">
-                <div class="linha"><span>Hoje/Total</span><span class="valor verde" id="totalGeral">R$ 0,00</span></div>
+        <!-- ======================================
+            ABA 1: LANÇAR CORRIDAS — TODOS OS CAMPOS DE VOLTA
+        ====================================== -->
+        <div id="pagCorridas" class="aba mostrar">
+            <div class="grade">
+                <div class="cartao"><div class="rotulo">Hoje</div><div class="valor verde" id="valHoje">R$ 0,00</div></div>
+                <div class="cartao"><div class="rotulo">Total</div><div class="valor laranja" id="valTotal">R$ 0,00</div></div>
+                <div class="cartao"><div class="rotulo">Km Rodados</div><div class="valor azul" id="valKm">0,0 km</div></div>
+                <div class="cartao"><div class="rotulo">Média R$/km</div><div class="valor roxo" id="valMediaKm">R$ 0,00</div></div>
             </div>
 
-            <div class="cartao">
-                <h3 style="margin-bottom:12px">➕ Nova Corrida</h3>
+            <div class="bloco">
+                <h3>➕ Nova Corrida</h3>
                 <div class="grupo">
-                    <label>Origem</label>
+                    <label>📍 Origem</label>
                     <input type="text" id="origem" placeholder="De onde saiu?">
                 </div>
                 <div class="grupo">
-                    <label>Destino</label>
+                    <label>🎯 Destino</label>
                     <input type="text" id="destino" placeholder="Para onde foi?">
                 </div>
                 <div class="grupo">
-                    <label>Aplicativo</label>
-                    <input type="text" id="app" placeholder="Uber / 99 / Outro">
+                    <label>📱 Aplicativo</label>
+                    <select id="app">
+                        <option>Uber</option>
+                        <option>99</option>
+                        <option>Maxim</option>
+                        <option>Zero16</option>
+                        <option>iFood</option>
+                        <option>Particular</option>
+                    </select>
                 </div>
                 <div class="grupo">
-                    <label>Valor R$</label>
+                    <label>⏰ Período</label>
+                    <select id="periodo">
+                        <option>Manhã</option>
+                        <option>Tarde</option>
+                        <option>Noite</option>
+                    </select>
+                </div>
+                <div class="grupo">
+                    <label>💵 Valor da Corrida (R$)</label>
                     <input type="number" step="0.01" id="valor" placeholder="0,00">
                 </div>
-                <button class="btn btn-laranja" onclick="guardarCorrida()">SALVAR</button>
+                <div class="grupo">
+                    <label>🛣️ Km Rodados</label>
+                    <input type="number" step="0.1" id="km" placeholder="0,0">
+                </div>
+                <div class="grupo">
+                    <label>📅 Data / Horário</label>
+                    <input type="datetime-local" id="dataHora">
+                </div>
+                <div class="grupo">
+                    <label>📝 Observações</label>
+                    <textarea id="obs" rows="2" placeholder="Ex: pedágio, valor extra..."></textarea>
+                </div>
+                <button class="btn btn-laranja" onclick="salvarCorrida()">💾 SALVAR CORRIDA</button>
             </div>
 
-            <div class="cartao">
-                <h3 style="margin-bottom:12px">📋 Minhas Corridas</h3>
-                <div id="listaVazia" style="color:#888; text-align:center; padding:10px">Nenhuma corrida ainda.</div>
-                <div id="lista"></div>
+            <div class="bloco">
+                <h3>📋 Minhas Corridas</h3>
+                <div id="listaCorridas"><div class="aviso">Nenhuma corrida cadastrada ainda.</div></div>
             </div>
         </div>
 
-        <!-- ABA RESUMO -->
-        <div id="abaResumo" class="aba">
-            <div class="cartao">
-                <h3 style="margin-bottom:12px">📊 Seus Dados</h3>
-                <div class="linha"><span>Quantidade</span><span id="qtd">0</span></div>
-                <div class="linha"><span>Total Ganho</span><span class="valor verde" id="ganho">R$ 0,00</span></div>
-                <div class="linha"><span>Média</span><span class="valor azul" id="media">R$ 0,00</span></div>
+        <!-- ======================================
+            ABA 2: RELATÓRIOS COMPLETOS COM GRÁFICOS
+        ====================================== -->
+        <div id="pagRelatorios" class="aba">
+            <div class="bloco">
+                <h3>📊 Resumo Geral</h3>
+                <div class="grade">
+                    <div class="cartao"><div class="rotulo">Quantidade</div><div class="valor" id="qtd">0</div></div>
+                    <div class="cartao"><div class="rotulo">Total Ganho</div><div class="valor verde" id="ganho">R$ 0,00</div></div>
+                    <div class="cartao"><div class="rotulo">Total Km</div><div class="valor laranja" id="kmTotal">0,0 km</div></div>
+                    <div class="cartao"><div class="rotulo">Média R$/km</div><div class="valor azul" id="mediaKm">R$ 0,00</div></div>
+                </div>
+            </div>
+
+            <!-- GRÁFICO: GANHOS POR DIA -->
+            <div class="bloco">
+                <h3>💰 Ganhos dos Últimos 7 Dias</h3>
+                <div class="grafico" id="graficoDias"></div>
+                <div class="grafico-linha" id="legendaDias"></div>
+            </div>
+
+            <!-- GRÁFICO: CORRIDAS POR APP -->
+            <div class="bloco">
+                <h3>📱 Corridas por Aplicativo</h3>
+                <div class="grafico" id="graficoApps"></div>
+                <div class="grafico-linha" id="legendaApps"></div>
+            </div>
+
+            <!-- 🏆 MELHORES DADOS -->
+            <div class="bloco">
+                <h3>🏆 Desempenho</h3>
+                <div class="destaque">
+                    <h4>📱 Melhor App (R$/km)</h4>
+                    <p id="melhorApp">— Sem dados suficientes</p>
+                </div>
+                <div class="destaque">
+                    <h4>⏰ Melhor Período (R$/km)</h4>
+                    <p id="melhorPeriodo">— Sem dados suficientes</p>
+                </div>
+                <div class="destaque">
+                    <h4>📈 Detalhamento por App</h4>
+                    <div id="detalheApps" style="font-size:13px; margin-top:8px;"></div>
+                </div>
             </div>
         </div>
 
-        <!-- ABA BACKUP -->
-        <div id="abaSalvar" class="aba">
-            <div class="cartao">
-                <h3>⬇️ Baixar seus dados</h3>
-                <p style="font-size:13px; color:#aaa; margin:8px 0 12px">Salve tudo num arquivo para não perder.</p>
-                <button class="btn btn-laranja" onclick="baixar()">BAIXAR ARQUIVO</button>
+        <!-- ======================================
+            ABA 3: BACKUP
+        ====================================== -->
+        <div id="pagBackup" class="aba">
+            <div class="bloco">
+                <h3>⬇️ Baixar Cópia de Segurança</h3>
+                <p style="font-size:13px; color:#aaa; margin-bottom:10px;">Salve todos os seus dados num arquivo — guarde no celular ou e-mail.</p>
+                <button class="btn btn-laranja" onclick="baixarBackup()">BAIXAR ARQUIVO</button>
             </div>
-            <div class="cartao">
-                <h3>⬆️ Recuperar dados</h3>
-                <p style="font-size:13px; color:#aaa; margin:8px 0 12px">Escolha o arquivo que você baixou.</p>
-                <input type="file" id="arquivo" accept=".json" onchange="restaurar(this)">
+            <div class="bloco">
+                <h3>⬆️ Restaurar Dados</h3>
+                <p style="font-size:13px; color:#aaa; margin-bottom:10px;">Escolha o arquivo de backup que você baixou anteriormente.</p>
+                <label class="btn btn-azul" style="width:100%; display:block; text-align:center; margin:0;">
+                    📂 Escolher Arquivo
+                    <input type="file" id="entradaBackup" accept=".json">
+                </label>
+                <button class="btn btn-verde" onclick="restaurarBackup()">RESTAURAR DADOS</button>
             </div>
         </div>
-
     </div>
 </div>
 
 <script>
-// =============================================
-// FRASES DE INCENTIVO
-// =============================================
-const frases = [
-    "Cada corrida te aproxima do seu sonho! 💪🚗",
-    "Seu esforço traz resultados — confie! 🚀",
-    "Boa viagem e bons ganhos hoje! 💛",
-    "Você é capaz de muito mais! Siga em frente! ✨",
-    "Pequenos passos chegam longe. Boa sorte! 🏁",
-    "Segurança primeiro, lucro depois! Boa corrida! 🛣️"
+// ==============================================
+// 🔹 FRASES DE INCENTIVO — ALEATÓRIAS
+// ==============================================
+const frasesMotivacionais = [
+    "Cada corrida te aproxima mais do seu objetivo! 💪🚗",
+    "O sucesso é a soma de pequenos esforços repetidos diariamente! 🚀💰",
+    "Sua determinação conduz você mais longe. Bom trabalho! 💛✨",
+    "Confie no seu potencial. Você é capaz de ir muito mais longe! 🛣️💪",
+    "Que cada quilômetro traga você mais perto das suas metas! 📈🚗",
+    "O esforço de hoje é a vitória de amanhã. Continue firme! 🏁🔥",
+    "Você faz o seu caminho, e o caminho traz os seus frutos! 🍀💙"
 ];
 
-// =============================================
-// HORA ATUALIZA SOZINHA
-// =============================================
-function atualizarHora() {
+// ==============================================
+// 🔹 ATUALIZAR HORA E DATA
+// ==============================================
+function atualizarRelogio() {
     const agora = new Date();
     const h = String(agora.getHours()).padStart(2,'0');
     const m = String(agora.getMinutes()).padStart(2,'0');
     document.getElementById('hora').textContent = `${h}:${m}`;
+    document.getElementById('dataCompleta').textContent = agora.toLocaleDateString('pt-BR', {weekday:'long', day:'2-digit', month:'long'});
 }
-setInterval(atualizarHora, 60000);
 
-// =============================================
-// LOGIN E CADASTRO — SIMPLES E DIRETO
-// =============================================
+// ==============================================
+// 🔹 SISTEMA DE LOGIN/CADASTRO — CORRIGIDO
+// ==============================================
 const CHAVE_USUARIOS = 'movu_usuarios';
-const CHAVE_SESSAO = 'movu_logado';
+const CHAVE_SESSAO = 'movu_sessao';
 const CHAVE_CORRIDAS = 'movu_corridas';
 
-function usuarios() {
-    return JSON.parse(localStorage.getItem(CHAVE_USUARIOS) || '[]');
+function pegarUsuarios() {
+    try {
+        return JSON.parse(localStorage.getItem(CHAVE_USUARIOS) || '[]');
+    } catch { return []; }
+}
+
+function salvarUsuario(usuario) {
+    const lista = pegarUsuarios();
+    lista.push(usuario);
+    localStorage.setItem(CHAVE_USUARIOS, JSON.stringify(lista));
 }
 
 function mudarAba(tipo) {
-    document.querySelectorAll('.botao-abas').forEach(b => b.classList.remove('ativo'));
-    document.getElementById('formEntrar').classList.add('escondido');
-    document.getElementById('formCadastrar').classList.add('escondido');
+    document.querySelectorAll('.aba-btn').forEach(b => b.classList.remove('ativo'));
+    document.getElementById('formLogin').classList.add('escondido');
+    document.getElementById('formCadastro').classList.add('escondido');
     document.querySelectorAll('.erro').forEach(e => e.classList.remove('mostrar'));
 
-    if (tipo === 'entrar') {
-        document.querySelectorAll('.botao-abas')[0].classList.add('ativo');
-        document.getElementById('formEntrar').classList.remove('escondido');
+    if (tipo === 'login') {
+        document.querySelectorAll('.aba-btn')[0].classList.add('ativo');
+        document.getElementById('formLogin').classList.remove('escondido');
     } else {
-        document.querySelectorAll('.botao-abas')[1].classList.add('ativo');
-        document.getElementById('formCadastrar').classList.remove('escondido');
+        document.querySelectorAll('.aba-btn')[1].classList.add('ativo');
+        document.getElementById('formCadastro').classList.remove('escondido');
     }
 }
 
-function fazerCadastrar() {
-    const nome = document.getElementById('cNome').value.trim();
-    const senha = document.getElementById('cSenha').value;
-    const senha2 = document.getElementById('cSenha2').value;
-    const erro = document.getElementById('eCadastrar');
+function fazerCadastro() {
+    const nome = document.getElementById('cadNome').value.trim();
+    const usuario = document.getElementById('cadUsuario').value.trim();
+    const senha = document.getElementById('cadSenha').value;
+    const senha2 = document.getElementById('cadSenha2').value;
+    const erro = document.getElementById('erroCadastro');
 
-    if (!nome || senha.length < 6) {
-        erro.textContent = 'Preencha tudo! Senha mínimo 6 caracteres.';
+    if (!nome || !usuario || senha.length < 6) {
+        erro.textContent = 'Preencha tudo! Senha no mínimo 6 caracteres.';
         erro.classList.add('mostrar');
         return;
     }
     if (senha !== senha2) {
-        erro.textContent = 'As senhas não são iguais!';
+        erro.textContent = 'As senhas não coincidem!';
         erro.classList.add('mostrar');
         return;
     }
-    if (usuarios().find(u => u.nome === nome)) {
-        erro.textContent = 'Esse nome já existe! Escolha outro.';
+    if (pegarUsuarios().find(u => u.usuario === usuario)) {
+        erro.textContent = 'Esse usuário/e-mail já está cadastrado!';
         erro.classList.add('mostrar');
         return;
     }
 
-    const lista = usuarios();
-    lista.push({nome, senha});
-    localStorage.setItem(CHAVE_USUARIOS, JSON.stringify(lista));
-    localStorage.setItem(CHAVE_SESSAO, nome);
-    alert(`✅ Bem-vindo, ${nome}! Cadastro feito!`);
-    entrarNaApp(nome);
+    salvarUsuario({nome, usuario, senha});
+    localStorage.setItem(CHAVE_SESSAO, JSON.stringify({nome, usuario}));
+    alert(`✅ Bem-vindo, ${nome}! Conta criada com sucesso!`);
+    entrarNoSistema({nome, usuario});
 }
 
-function fazerEntrar() {
-    const nome = document.getElementById('uNome').value.trim();
-    const senha = document.getElementById('uSenha').value;
-    const achou = usuarios().find(u => u.nome === nome && u.senha === senha);
+function fazerLogin() {
+    const usuario = document.getElementById('loginUsuario').value.trim();
+    const senha = document.getElementById('loginSenha').value;
+    const usuarios = pegarUsuarios();
+    const encontrado = usuarios.find(u => u.usuario === usuario && u.senha === senha);
     
-    if (achou) {
-        localStorage.setItem(CHAVE_SESSAO, nome);
-        entrarNaApp(nome);
+    if (encontrado) {
+        localStorage.setItem(CHAVE_SESSAO, JSON.stringify({nome: encontrado.nome, usuario: encontrado.usuario}));
+        entrarNoSistema(encontrado);
     } else {
-        document.getElementById('eEntrar').classList.add('mostrar');
+        document.getElementById('erroLogin').classList.add('mostrar');
     }
 }
 
-function verificarSeEntrou() {
-    const nome = localStorage.getItem(CHAVE_SESSAO);
-    if (nome) entrarNaApp(nome);
+function verificarSessao() {
+    const sessao = JSON.parse(localStorage.getItem(CHAVE_SESSAO) || 'null');
+    if (sessao) entrarNoSistema(sessao);
 }
 
-function entrarNaApp(nome) {
-    // Coloca hora e frase
-    atualizarHora();
-    document.getElementById('frase').textContent = frases[Math.floor(Math.random() * frases.length)];
-    
-    // Troca de tela
-    document.getElementById('telaEntrar').classList.add('escondido');
+function entrarNoSistema(dados) {
+    // Mostrar hora e frase
+    atualizarRelogio();
+    setInterval(atualizarRelogio, 30000);
+    document.getElementById('frase').textContent = frasesMotivacionais[Math.floor(Math.random() * frasesMotivacionais.length)];
+
+    // Trocar telas
+    document.getElementById('telaLogin').classList.add('escondido');
     document.getElementById('telaApp').classList.remove('escondido');
-    mostrarDados();
+    carregarDadosTela();
 }
 
 function sair() {
     localStorage.removeItem(CHAVE_SESSAO);
-    location.reload();
-}
-
-// =============================================
-// NAVEGAÇÃO E CORRIDAS
-// =============================================
-function mostrarAba(nome) {
-    document.querySelectorAll('.aba').forEach(a => a.classList.remove('aberta'));
-    document.querySelectorAll('.m-btn').forEach(b => b.classList.remove('ativo'));
-
-    if (nome === 'corridas') {
-        document.getElementById('abaCorridas').classList.add('aberta');
-        document.querySelectorAll('.m-btn')[0].classList.add('ativo');
-    } else if (nome === 'resumo') {
-        document.getElementById('abaResumo').classList.add('aberta');
-        document.querySelectorAll('.m-btn')[1].classList.add('ativo');
-    } else {
-        document.getElementById('abaSalvar').classList.add('aberta');
-        document.querySelectorAll('.m-btn')[2].classList.add('ativo');
-    }
-}
-
-function pegarCorridas() {
-    try {
-        return JSON.parse(localStorage.getItem(CHAVE_CORRIDAS) || '[]');
-    } catch { return []; }
-}
-
-function guardarCorrida() {
-    const origem = document.getElementById('origem').value.trim();
-    const destino = document.getElementById('destino').value.trim();
-    const app = document.getElementById('app').value.trim() || 'Outro';
-    const valor = parseFloat(document.getElementById('valor').value);
-
-    if (!origem || !destino || isNaN(valor)) {
-        alert('⚠️ Preencha origem, destino e valor!');
-        return;
-    }
-
-    const corrida = {
-        origem, destino, app, valor,
-        data: new Date().toLocaleDateString('pt-BR')
-    };
-
-    const lista = pegarCorridas();
-    lista.unshift(corrida);
-
-    try {
-        localStorage.setItem(CHAVE_CORRIDAS, JSON.stringify(lista));
-    } catch {
-        alert('❌ Não consegui salvar — use o Google Chrome e saia do modo anônimo!');
-        return;
-    }
-
-    alert('✅ Salvo!');
-    document.getElementById('origem').value = '';
-    document.getElementById('destino').value = '';
-    document.getElementById('app').value = '';
-    document.getElementById('valor').value = '';
-    mostrarDados();
-}
-
-function mostrarDados() {
-    const lista = pegarCorridas();
-    const listaEl = document.getElementById('lista');
-    const vazioEl = document.getElementById('listaVazia');
-
-    if (lista.length === 0) {
-        listaEl.innerHTML = '';
-        vazioEl.classList.remove('escondido');
-    } else {
-        vazioEl.classList.add('escondido');
-        listaEl.innerHTML = lista.map(c => `
-            <div class="item">
-                <div class="linha"><strong>${c.origem} → ${c.destino}</strong><span class="valor verde">R$ ${c.valor.toFixed(2)}</span></div>
-                <div class="linha"><span><span class="tag">${c.app}</span>${c.data}</span></div>
-            </div>
-        `).join('');
-    }
-
-    const total = lista.reduce((s, c) => s + c.valor, 0);
-    const media = lista.length ? total / lista.length : 0;
-
-    document.getElementById('totalGeral').textContent = `R$ ${total.toFixed(2)}`;
-    document.getElementById('qtd').textContent = lista.length;
-    document.getElementById('ganho').textContent = `R$ ${total.toFixed(2)}`;
-    document.getElementById('media').textContent = `R$ ${media.toFixed(2)}`;
-}
-
-// =============================================
-// BACKUP
-// =============================================
-function baixar() {
-    const lista = pegarCorridas();
-    if (!lista.length) return alert('Não há dados para salvar!');
-    const arq = new Blob([JSON.stringify(lista, null, 2)], {type:'application/json'});
-    const url = URL.createObjectURL(arq);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `backup-movu-${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.json`;
-    a.click();
-}
-
-function restaurar(input) {
-    const arq = input.files[0];
-    if (!arq) return;
-    const leitor = new FileReader();
-    leitor.onload = e => {
-        try {
-            const dados = JSON.parse(e.target.result);
-            if (!Array.isArray(dados)) throw 'errado';
-            localStorage.setItem(CHAVE_CORRIDAS, JSON.stringify(dados));
-            mostrarDados();
-            alert('✅ Recuperado!');
-        } catch {
-            alert('❌ Esse não é um arquivo de backup válido.');
-        }
-    };
-    leitor.readAsText(arq);
-}
-
-// INICIAR
-verificarSeEntrou();
-</script>
-
-</body>
-</html>
-t
+    locat
