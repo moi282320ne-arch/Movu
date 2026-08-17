@@ -1,195 +1,152 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOVU digital - Controle de Corridas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <title>MOVU digital</title>
     <style>
-        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
-        body {background: #0F0F0F; color: #fff; min-height: 100vh; padding-bottom: 30px;}
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif;}
+        body {background: #0F0F0F; color: #fff; min-height: 100vh; padding-bottom: 20px;}
 
-        /* LOGO */
-        .logo {text-align: center; margin: 20px 0; white-space: nowrap;}
-        .logo-movu {font-size: 46px; font-weight: 900; color: #FF9800;}
-        .logo-digital {font-size: 24px; font-weight: 700; color: #2196F3; margin-left: 4px;}
-        .slogan {font-size: 11px; color: #888; margin-top: 4px; letter-spacing: 1px;}
-        .slogan span {color: #FF9800;}
+        .logo {text-align: center; margin: 20px 0;}
+        .movu {font-size: 42px; font-weight: 900; color: #FF9800;}
+        .digital {font-size: 22px; color: #2196F3; margin-left: 3px;}
 
-        /* TELA LOGIN */
-        .caixa-auth {max-width: 400px; margin: 0 auto; padding: 25px; background: #1A1A1A; border-radius: 16px; border: 1px solid #333;}
+        .caixa {max-width: 400px; margin: 0 auto; padding: 20px; background: #1A1A1A; border-radius: 12px;}
         .abas {display: flex; margin-bottom: 20px;}
         .aba-btn {flex: 1; padding: 10px; background: transparent; border: none; color: #888; font-size: 15px; cursor: pointer; border-bottom: 2px solid transparent;}
-        .aba-btn.ativo {color: #FF9800; border-bottom-color: #FF9800; font-weight: 600;}
-        
-        .grupo {margin-bottom: 15px;}
-        label {display: block; font-size: 13px; color: #aaa; margin-bottom: 6px;}
-        input, select, textarea {width: 100%; padding: 12px; background: #222; border: 1px solid #444; border-radius: 10px; color: #fff; font-size: 15px;}
-        input:focus, select:focus {border-color: #FF9800; outline: none;}
-        .btn {width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin: 6px 0;}
-        .btn-laranja {background: linear-gradient(90deg, #FF9800, #FF6F00); color: #fff;}
-        .btn-verde {background: linear-gradient(90deg, #00C853, #009624); color: #fff;}
-        .btn-azul {background: linear-gradient(90deg, #2196F3, #1565C0); color: #fff;}
-        .erro {color: #ff6b6b; font-size: 13px; margin-top: -10px; margin-bottom: 10px; display: none;}
+        .aba-btn.ativo {color: #FF9800; border-color: #FF9800; font-weight: bold;}
+
+        .grupo {margin-bottom: 14px;}
+        label {display: block; font-size: 13px; color: #aaa; margin-bottom: 5px;}
+        input, select, textarea {width: 100%; padding: 12px; background: #252525; border: 1px solid #444; border-radius: 8px; color: #fff; font-size: 15px;}
+        .btn {width: 100%; padding: 13px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;}
+        .btn-laranja {background: #FF9800; color: #000;}
+        .erro {color: #ff6b6b; font-size: 13px; margin: 8px 0; display: none;}
         .erro.mostrar {display: block;}
         .escondido {display: none !important;}
 
-        /* CABEÇALHO APÓS LOGIN */
-        .info-topo {background: #1A1A1A; padding: 14px 16px; border-bottom: 1px solid #2A2A2A; margin-bottom: 15px;}
-        .dados-hora {display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 8px;}
-        .hora-grande {font-size: 28px; font-weight: 900; color: #FF9800; line-height: 1;}
-        .cidade-data {font-size: 14px; color: #aaa; line-height: 1.5;}
-        .frase-motivacao {font-size: 14px; color: #FFCC80; font-style: italic; margin-top: 6px;}
+        .info-topo {background: #1A1A1A; padding: 12px 15px; margin-bottom: 15px; border-bottom: 1px solid #333;}
+        .hora {font-size: 28px; font-weight: bold; color: #FF9800;}
+        .cidade {font-size: 14px; color: #aaa; margin: 4px 0;}
+        .frase {font-size: 14px; color: #FFCC80; font-style: italic; margin-top: 6px;}
 
-        /* MENU */
-        .menu {display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 10px 15px; background: #151515; position: sticky; top: 0; z-index: 99; border-bottom: 1px solid #2A2A2A;}
-        .menu-btn {padding: 10px 14px; background: #1E1E1E; border: none; border-radius: 10px; color: #aaa; font-size: 14px; cursor: pointer;}
-        .menu-btn.ativo {background: rgba(255,152,0,0.15); color: #FF9800; font-weight: 600;}
-        .menu-btn.azul.ativo {background: rgba(33,150,243,0.15); color: #2196F3;}
-        .btn-sair {background: rgba(239,83,80,0.1); color: #EF5350; padding: 10px 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; margin-left: auto;}
+        .menu {display: flex; gap: 6px; padding: 10px; background: #151515; position: sticky; top: 0; flex-wrap: wrap; justify-content: center;}
+        .m-btn {padding: 10px 12px; background: #222; border: none; border-radius: 8px; color: #aaa; cursor: pointer;}
+        .m-btn.ativo {background: rgba(255,152,0,0.2); color: #FF9800; font-weight: bold;}
+        .m-btn.sair {color: #ff6b6b; background: rgba(255,0,0,0.1); margin-left: auto;}
 
-        .container {padding: 0 15px; max-width: 520px; margin: 0 auto;}
+        .container {padding: 12px; max-width: 520px; margin: 0 auto;}
         .aba {display: none;}
-        .aba.mostrar {display: block;}
+        .aba.aberta {display: block;}
 
-        /* PAINÉIS E GRÁFICOS */
-        .grade {display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;}
-        .cartao {background: #1A1A1A; border-radius: 14px; padding: 14px; border: 1px solid #2A2A2A;}
-        .rotulo {font-size: 12px; color: #888; margin-bottom: 4px;}
-        .valor {font-size: 18px; font-weight: 800;}
-        .verde {color: #00E676;} .laranja {color: #FF9800;} .azul {color: #2196F3;} .roxo {color: #BB86FC;}
+        .cartao {background: #1A1A1A; border-radius: 10px; padding: 15px; margin-bottom: 15px;}
+        .linha {display: flex; justify-content: space-between; margin: 5px 0; font-size: 15px; flex-wrap: wrap; gap: 8px;}
+        .valor {font-weight: bold;}
+        .verde {color: #00E676;} .azul {color: #2196F3;} .laranja {color: #FF9800;} .roxo {color: #BB86FC;}
 
-        .bloco {background: #1A1A1A; border-radius: 16px; padding: 20px; margin-bottom: 20px; border: 1px solid #2A2A2A;}
-        .bloco h3 {font-size: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;}
+        .item {background: #222; border-radius: 8px; padding: 10px; margin-bottom: 8px; border-left: 3px solid #FF9800;}
+        .tag {display: inline-block; background: #333; padding: 2px 6px; border-radius: 4px; font-size: 12px; margin-right: 4px; margin-top: 2px;}
 
-        /* GRÁFICOS EM BARRAS — SEM BIBLIOTECAS */
-        .grafico {display: flex; align-items: flex-end; justify-content: space-around; height: 160px; margin-top: 12px; border-bottom: 1px solid #333; border-left: 1px solid #333; padding: 0 8px;}
-        .barra {width: 18px; border-radius: 4px 4px 0 0; transition: height 0.3s ease;}
-        .barra-legenda {text-align: center; font-size: 10px; color: #888; margin-top: 4px; max-width: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-        .grafico-linha {display: flex; justify-content: space-around; margin-top: 8px;}
-
-        .item-corrida {background: #222; border-radius: 12px; padding: 13px; margin-bottom: 10px; border-left: 3px solid #FF9800;}
-        .linha {display: flex; justify-content: space-between; margin: 4px 0; font-size: 14px;}
-        .tag {display: inline-block; background: rgba(255,152,0,0.1); color: #FF9800; padding: 2px 6px; border-radius: 6px; font-size: 11px; margin-right: 4px;}
-        .tag-azul {background: rgba(33,150,243,0.1); color: #2196F3;}
-        .aviso {color: #777; text-align: center; padding: 30px;}
-        input[type="file"] {display: none;}
+        .grafico {display: flex; align-items: flex-end; justify-content: space-around; height: 140px; margin-top: 12px; border-bottom: 1px solid #333; border-left: 1px solid #333;}
+        .barra {width: 20px; border-radius: 4px 4px 0 0;}
         .destaque {background: rgba(255,152,0,0.08); border-radius: 8px; padding: 10px; margin-top: 10px;}
         .destaque h4 {font-size: 14px; color: #FF9800; margin-bottom: 6px;}
     </style>
 </head>
 <body>
 
-<!-- LOGO -->
 <div class="logo">
-    <span class="logo-movu">MOVU</span><span class="logo-digital">digital</span>
-    <div class="slogan">MOVER VOCÊ. <span>UNIR DESTINOS.</span> TRANSFORMAR JORNADAS.</div>
+    <span class="movu">MOVU</span><span class="digital">digital</span>
 </div>
 
-<!-- ÁREA DE LOGIN / CADASTRO -->
-<div id="telaLogin">
-    <div class="caixa-auth">
+<!-- TELA DE ENTRAR / CADASTRAR -->
+<div id="telaEntrar">
+    <div class="caixa">
         <div class="abas">
             <button class="aba-btn ativo" onclick="mudarAba('login')">Entrar</button>
             <button class="aba-btn" onclick="mudarAba('cadastro')">Cadastrar</button>
         </div>
 
-        <!-- FORM LOGIN -->
         <div id="formLogin">
             <div class="grupo">
-                <label>Seu Nome ou E-mail</label>
-                <input type="text" id="loginUsuario" placeholder="Ex: Carlos ou carlos@email.com">
+                <label>Seu Nome</label>
+                <input type="text" id="nomeUsuario" placeholder="Digite seu nome">
             </div>
             <div class="grupo">
                 <label>Senha</label>
-                <input type="password" id="loginSenha" placeholder="Mínimo 6 caracteres">
+                <input type="password" id="senhaUsuario" placeholder="Mínimo 6 caracteres">
             </div>
-            <div class="erro" id="erroLogin">Usuário ou senha incorretos!</div>
-            <button class="btn btn-laranja" onclick="fazerLogin()">ENTRAR</button>
+            <div class="erro" id="erroLogin">Nome ou senha incorretos!</div>
+            <button class="btn btn-laranja" onclick="entrar()">ENTRAR</button>
         </div>
 
-        <!-- FORM CADASTRO -->
         <div id="formCadastro" class="escondido">
             <div class="grupo">
-                <label>Nome Completo</label>
-                <input type="text" id="cadNome" placeholder="Seu nome completo">
+                <label>Crie seu Nome</label>
+                <input type="text" id="novoNome" placeholder="Ex: Carlos">
             </div>
             <div class="grupo">
-                <label>Usuário ou E-mail</label>
-                <input type="text" id="cadUsuario" placeholder="Escolha um nome ou e-mail">
+                <label>Crie uma Senha</label>
+                <input type="password" id="novaSenha" placeholder="Mínimo 6 caracteres">
             </div>
             <div class="grupo">
-                <label>Criar Senha</label>
-                <input type="password" id="cadSenha" placeholder="Mínimo 6 caracteres">
-            </div>
-            <div class="grupo">
-                <label>Repetir Senha</label>
-                <input type="password" id="cadSenha2" placeholder="Digite a senha novamente">
+                <label>Repita a Senha</label>
+                <input type="password" id="repeteSenha" placeholder="Mesma senha acima">
             </div>
             <div class="erro" id="erroCadastro">Preencha tudo corretamente!</div>
-            <button class="btn btn-laranja" onclick="fazerCadastro()">CADASTRAR</button>
+            <button class="btn btn-laranja" onclick="cadastrar()">CADASTRAR</button>
         </div>
     </div>
 </div>
 
-<!-- ÁREA PRINCIPAL — SÓ APARECE DEPOIS DE LOGAR -->
+<!-- TELA PRINCIPAL -->
 <div id="telaApp" class="escondido">
-
-    <!-- 🕒 HORA, CIDADE E FRASE DEPOIS DE LOGAR -->
     <div class="info-topo">
-        <div class="dados-hora">
-            <div class="hora-grande" id="hora">00:00</div>
-            <div class="cidade-data">
-                <div>📍 Franca - SP</div>
-                <div id="dataCompleta">00/00/2026</div>
-            </div>
-        </div>
-        <p class="frase-motivacao" id="frase">Boa sorte e boas corridas! 💪🚗</p>
+        <div class="hora" id="hora">00:00</div>
+        <div class="cidade">📍 Franca - SP</div>
+        <div class="frase" id="frase">Boa sorte e boas corridas! 💪🚗</div>
     </div>
 
-    <!-- MENU -->
     <div class="menu">
-        <button class="menu-btn ativo" onclick="abrirPagina('corridas')">🚗 Corridas</button>
-        <button class="menu-btn azul" onclick="abrirPagina('relatorios')">📊 Relatórios</button>
-        <button class="menu-btn azul" onclick="abrirPagina('backup')">💾 Backup</button>
-        <button class="btn-sair" onclick="sair()">Sair</button>
+        <button class="m-btn ativo" onclick="mostrarAba('corridas')">🚗 Corridas</button>
+        <button class="m-btn" onclick="mostrarAba('relatorios')">📊 Relatórios</button>
+        <button class="m-btn" onclick="mostrarAba('backup')">💾 Backup</button>
+        <button class="m-btn sair" onclick="sair()">Sair</button>
     </div>
 
     <div class="container">
-        <!-- ======================================
-            ABA 1: LANÇAR CORRIDAS — TODOS OS CAMPOS DE VOLTA
-        ====================================== -->
-        <div id="pagCorridas" class="aba mostrar">
-            <div class="grade">
-                <div class="cartao"><div class="rotulo">Hoje</div><div class="valor verde" id="valHoje">R$ 0,00</div></div>
-                <div class="cartao"><div class="rotulo">Total</div><div class="valor laranja" id="valTotal">R$ 0,00</div></div>
-                <div class="cartao"><div class="rotulo">Km Rodados</div><div class="valor azul" id="valKm">0,0 km</div></div>
-                <div class="cartao"><div class="rotulo">Média R$/km</div><div class="valor roxo" id="valMediaKm">R$ 0,00</div></div>
+        <!-- ABA CORRIDAS -->
+        <div id="abaCorridas" class="aba aberta">
+            <div class="cartao">
+                <div class="linha"><span>Hoje</span><span class="valor verde" id="valHoje">R$ 0,00</span></div>
+                <div class="linha"><span>Total</span><span class="valor laranja" id="valTotal">R$ 0,00</span></div>
+                <div class="linha"><span>Km Total</span><span class="valor azul" id="valKm">0,0 km</span></div>
+                <div class="linha"><span>Média R$/km</span><span class="valor roxo" id="valMedia">R$ 0,00</span></div>
             </div>
 
-            <div class="bloco">
-                <h3>➕ Nova Corrida</h3>
+            <div class="cartao">
+                <h3 style="margin-bottom:12px">➕ Nova Corrida</h3>
                 <div class="grupo">
-                    <label>📍 Origem</label>
+                    <label>Origem</label>
                     <input type="text" id="origem" placeholder="De onde saiu?">
                 </div>
                 <div class="grupo">
-                    <label>🎯 Destino</label>
+                    <label>Destino</label>
                     <input type="text" id="destino" placeholder="Para onde foi?">
                 </div>
                 <div class="grupo">
-                    <label>📱 Aplicativo</label>
+                    <label>Aplicativo</label>
                     <select id="app">
                         <option>Uber</option>
                         <option>99</option>
                         <option>Maxim</option>
-                        <option>Zero16</option>
-                        <option>iFood</option>
                         <option>Particular</option>
                     </select>
                 </div>
                 <div class="grupo">
-                    <label>⏰ Período</label>
+                    <label>Período</label>
                     <select id="periodo">
                         <option>Manhã</option>
                         <option>Tarde</option>
@@ -197,140 +154,104 @@
                     </select>
                 </div>
                 <div class="grupo">
-                    <label>💵 Valor da Corrida (R$)</label>
+                    <label>Valor R$</label>
                     <input type="number" step="0.01" id="valor" placeholder="0,00">
                 </div>
                 <div class="grupo">
-                    <label>🛣️ Km Rodados</label>
+                    <label>Km Rodados</label>
                     <input type="number" step="0.1" id="km" placeholder="0,0">
                 </div>
                 <div class="grupo">
-                    <label>📅 Data / Horário</label>
+                    <label>Data e Hora</label>
                     <input type="datetime-local" id="dataHora">
                 </div>
                 <div class="grupo">
-                    <label>📝 Observações</label>
-                    <textarea id="obs" rows="2" placeholder="Ex: pedágio, valor extra..."></textarea>
+                    <label>Observações</label>
+                    <textarea id="obs" rows="2" placeholder="Opcional"></textarea>
                 </div>
-                <button class="btn btn-laranja" onclick="salvarCorrida()">💾 SALVAR CORRIDA</button>
+                <button class="btn btn-laranja" onclick="salvarCorrida()">💾 SALVAR</button>
             </div>
 
-            <div class="bloco">
-                <h3>📋 Minhas Corridas</h3>
-                <div id="listaCorridas"><div class="aviso">Nenhuma corrida cadastrada ainda.</div></div>
+            <div class="cartao">
+                <h3 style="margin-bottom:12px">📋 Minhas Corridas</h3>
+                <div id="listaVazia" style="color:#888; text-align:center; padding:10px">Nenhuma corrida ainda.</div>
+                <div id="lista"></div>
             </div>
         </div>
 
-        <!-- ======================================
-            ABA 2: RELATÓRIOS COMPLETOS COM GRÁFICOS
-        ====================================== -->
-        <div id="pagRelatorios" class="aba">
-            <div class="bloco">
-                <h3>📊 Resumo Geral</h3>
-                <div class="grade">
-                    <div class="cartao"><div class="rotulo">Quantidade</div><div class="valor" id="qtd">0</div></div>
-                    <div class="cartao"><div class="rotulo">Total Ganho</div><div class="valor verde" id="ganho">R$ 0,00</div></div>
-                    <div class="cartao"><div class="rotulo">Total Km</div><div class="valor laranja" id="kmTotal">0,0 km</div></div>
-                    <div class="cartao"><div class="rotulo">Média R$/km</div><div class="valor azul" id="mediaKm">R$ 0,00</div></div>
-                </div>
+        <!-- ABA RELATÓRIOS -->
+        <div id="abaRelatorios" class="aba">
+            <div class="cartao">
+                <div class="linha"><span>Quantidade</span><span id="qtd">0</span></div>
+                <div class="linha"><span>Total Ganho</span><span class="valor verde" id="ganho">R$ 0,00</span></div>
+                <div class="linha"><span>Total Km</span><span class="valor azul" id="kmRel">0,0 km</span></div>
+                <div class="linha"><span>Média por km</span><span class="valor laranja" id="mediaRel">R$ 0,00</span></div>
             </div>
 
-            <!-- GRÁFICO: GANHOS POR DIA -->
-            <div class="bloco">
-                <h3>💰 Ganhos dos Últimos 7 Dias</h3>
+            <div class="cartao">
+                <h3>Ganhos últimos 7 dias</h3>
                 <div class="grafico" id="graficoDias"></div>
-                <div class="grafico-linha" id="legendaDias"></div>
             </div>
 
-            <!-- GRÁFICO: CORRIDAS POR APP -->
-            <div class="bloco">
-                <h3>📱 Corridas por Aplicativo</h3>
+            <div class="cartao">
+                <h3>Corridas por App</h3>
                 <div class="grafico" id="graficoApps"></div>
-                <div class="grafico-linha" id="legendaApps"></div>
             </div>
 
-            <!-- 🏆 MELHORES DADOS -->
-            <div class="bloco">
-                <h3>🏆 Desempenho</h3>
+            <div class="cartao">
+                <h3>🏆 Melhores Resultados</h3>
                 <div class="destaque">
-                    <h4>📱 Melhor App (R$/km)</h4>
-                    <p id="melhorApp">— Sem dados suficientes</p>
+                    <h4>Melhor App (R$/km)</h4>
+                    <p id="melhorApp">— Sem dados</p>
                 </div>
                 <div class="destaque">
-                    <h4>⏰ Melhor Período (R$/km)</h4>
-                    <p id="melhorPeriodo">— Sem dados suficientes</p>
-                </div>
-                <div class="destaque">
-                    <h4>📈 Detalhamento por App</h4>
-                    <div id="detalheApps" style="font-size:13px; margin-top:8px;"></div>
+                    <h4>Melhor Período (R$/km)</h4>
+                    <p id="melhorPeriodo">— Sem dados</p>
                 </div>
             </div>
         </div>
 
-        <!-- ======================================
-            ABA 3: BACKUP
-        ====================================== -->
-        <div id="pagBackup" class="aba">
-            <div class="bloco">
-                <h3>⬇️ Baixar Cópia de Segurança</h3>
-                <p style="font-size:13px; color:#aaa; margin-bottom:10px;">Salve todos os seus dados num arquivo — guarde no celular ou e-mail.</p>
-                <button class="btn btn-laranja" onclick="baixarBackup()">BAIXAR ARQUIVO</button>
+        <!-- ABA BACKUP -->
+        <div id="abaBackup" class="aba">
+            <div class="cartao">
+                <h3>⬇️ Baixar Backup</h3>
+                <p style="font-size:13px; color:#aaa; margin:8px 0">Salve seus dados num arquivo.</p>
+                <button class="btn btn-laranja" onclick="baixarBackup()">BAIXAR</button>
             </div>
-            <div class="bloco">
-                <h3>⬆️ Restaurar Dados</h3>
-                <p style="font-size:13px; color:#aaa; margin-bottom:10px;">Escolha o arquivo de backup que você baixou anteriormente.</p>
-                <label class="btn btn-azul" style="width:100%; display:block; text-align:center; margin:0;">
-                    📂 Escolher Arquivo
-                    <input type="file" id="entradaBackup" accept=".json">
-                </label>
-                <button class="btn btn-verde" onclick="restaurarBackup()">RESTAURAR DADOS</button>
+            <div class="cartao">
+                <h3>⬆️ Restaurar Backup</h3>
+                <p style="font-size:13px; color:#aaa; margin:8px 0">Escolha o arquivo salvo.</p>
+                <input type="file" id="arquivoBackup" accept=".json" onchange="restaurar(this)">
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// ==============================================
-// 🔹 FRASES DE INCENTIVO — ALEATÓRIAS
-// ==============================================
-const frasesMotivacionais = [
-    "Cada corrida te aproxima mais do seu objetivo! 💪🚗",
-    "O sucesso é a soma de pequenos esforços repetidos diariamente! 🚀💰",
-    "Sua determinação conduz você mais longe. Bom trabalho! 💛✨",
-    "Confie no seu potencial. Você é capaz de ir muito mais longe! 🛣️💪",
-    "Que cada quilômetro traga você mais perto das suas metas! 📈🚗",
-    "O esforço de hoje é a vitória de amanhã. Continue firme! 🏁🔥",
-    "Você faz o seu caminho, e o caminho traz os seus frutos! 🍀💙"
+const frases = [
+    "Cada corrida te aproxima do seu sonho! 💪🚗",
+    "Boa viagem e bons ganhos hoje! 💛",
+    "Seu esforço vale a pena — continue firme! 🚀",
+    "Você é capaz de ir muito mais longe! ✨"
 ];
 
-// ==============================================
-// 🔹 ATUALIZAR HORA E DATA
-// ==============================================
-function atualizarRelogio() {
+// Atualizar hora
+function atualizarHora() {
     const agora = new Date();
-    const h = String(agora.getHours()).padStart(2,'0');
-    const m = String(agora.getMinutes()).padStart(2,'0');
-    document.getElementById('hora').textContent = `${h}:${m}`;
-    document.getElementById('dataCompleta').textContent = agora.toLocaleDateString('pt-BR', {weekday:'long', day:'2-digit', month:'long'});
+    document.getElementById('hora').textContent = 
+        String(agora.getHours()).padStart(2,'0') + ':' + String(agora.getMinutes()).padStart(2,'0');
 }
+setInterval(atualizarHora, 60000);
 
-// ==============================================
-// 🔹 SISTEMA DE LOGIN/CADASTRO — CORRIGIDO
-// ==============================================
-const CHAVE_USUARIOS = 'movu_usuarios';
-const CHAVE_SESSAO = 'movu_sessao';
-const CHAVE_CORRIDAS = 'movu_corridas';
+// Chaves de armazenamento
+const CHAVE_USUARIOS = 'movu_usuarios_simples';
+const CHAVE_LOGADO = 'movu_logado_simples';
+const CHAVE_CORRIDAS = 'movu_corridas_simples';
 
 function pegarUsuarios() {
     try {
         return JSON.parse(localStorage.getItem(CHAVE_USUARIOS) || '[]');
     } catch { return []; }
-}
-
-function salvarUsuario(usuario) {
-    const lista = pegarUsuarios();
-    lista.push(usuario);
-    localStorage.setItem(CHAVE_USUARIOS, JSON.stringify(lista));
 }
 
 function mudarAba(tipo) {
@@ -348,66 +269,281 @@ function mudarAba(tipo) {
     }
 }
 
-function fazerCadastro() {
-    const nome = document.getElementById('cadNome').value.trim();
-    const usuario = document.getElementById('cadUsuario').value.trim();
-    const senha = document.getElementById('cadSenha').value;
-    const senha2 = document.getElementById('cadSenha2').value;
+function cadastrar() {
+    const nome = document.getElementById('novoNome').value.trim();
+    const senha = document.getElementById('novaSenha').value;
+    const senha2 = document.getElementById('repeteSenha').value;
     const erro = document.getElementById('erroCadastro');
 
-    if (!nome || !usuario || senha.length < 6) {
-        erro.textContent = 'Preencha tudo! Senha no mínimo 6 caracteres.';
+    if (!nome || senha.length < 6) {
+        erro.textContent = 'Preencha tudo! Senha mínimo 6 caracteres.';
         erro.classList.add('mostrar');
         return;
     }
     if (senha !== senha2) {
-        erro.textContent = 'As senhas não coincidem!';
+        erro.textContent = 'As senhas não são iguais!';
         erro.classList.add('mostrar');
         return;
     }
-    if (pegarUsuarios().find(u => u.usuario === usuario)) {
-        erro.textContent = 'Esse usuário/e-mail já está cadastrado!';
+    if (pegarUsuarios().find(u => u.nome === nome)) {
+        erro.textContent = 'Esse nome já existe! Escolha outro.';
         erro.classList.add('mostrar');
         return;
     }
 
-    salvarUsuario({nome, usuario, senha});
-    localStorage.setItem(CHAVE_SESSAO, JSON.stringify({nome, usuario}));
-    alert(`✅ Bem-vindo, ${nome}! Conta criada com sucesso!`);
-    entrarNoSistema({nome, usuario});
+    const usuarios = pegarUsuarios();
+    usuarios.push({nome, senha});
+    localStorage.setItem(CHAVE_USUARIOS, JSON.stringify(usuarios));
+    localStorage.setItem(CHAVE_LOGADO, nome);
+    alert(`✅ Bem-vindo, ${nome}!`);
+    entrarNaApp(nome);
 }
 
-function fazerLogin() {
-    const usuario = document.getElementById('loginUsuario').value.trim();
-    const senha = document.getElementById('loginSenha').value;
-    const usuarios = pegarUsuarios();
-    const encontrado = usuarios.find(u => u.usuario === usuario && u.senha === senha);
+function entrar() {
+    const nome = document.getElementById('nomeUsuario').value.trim();
+    const senha = document.getElementById('senhaUsuario').value;
+    const usuarioEncontrado = pegarUsuarios().find(u => u.nome === nome && u.senha === senha);
     
-    if (encontrado) {
-        localStorage.setItem(CHAVE_SESSAO, JSON.stringify({nome: encontrado.nome, usuario: encontrado.usuario}));
-        entrarNoSistema(encontrado);
+    if (usuarioEncontrado) {
+        localStorage.setItem(CHAVE_LOGADO, nome);
+        entrarNaApp(nome);
     } else {
         document.getElementById('erroLogin').classList.add('mostrar');
     }
 }
 
 function verificarSessao() {
-    const sessao = JSON.parse(localStorage.getItem(CHAVE_SESSAO) || 'null');
-    if (sessao) entrarNoSistema(sessao);
+    const nomeSalvo = localStorage.getItem(CHAVE_LOGADO);
+    if (nomeSalvo) entrarNaApp(nomeSalvo);
 }
 
-function entrarNoSistema(dados) {
-    // Mostrar hora e frase
-    atualizarRelogio();
-    setInterval(atualizarRelogio, 30000);
-    document.getElementById('frase').textContent = frasesMotivacionais[Math.floor(Math.random() * frasesMotivacionais.length)];
-
-    // Trocar telas
-    document.getElementById('telaLogin').classList.add('escondido');
+function entrarNaApp(nome) {
+    atualizarHora();
+    document.getElementById('frase').textContent = frases[Math.floor(Math.random() * frases.length)];
+    document.getElementById('telaEntrar').classList.add('escondido');
     document.getElementById('telaApp').classList.remove('escondido');
-    carregarDadosTela();
+    carregarDados();
 }
 
 function sair() {
-    localStorage.removeItem(CHAVE_SESSAO);
-    locat
+    localStorage.removeItem(CHAVE_LOGADO);
+    location.reload();
+}
+
+// Navegação
+function mostrarAba(nome) {
+    document.querySelectorAll('.aba').forEach(a => a.classList.remove('aberta'));
+    document.querySelectorAll('.m-btn').forEach(b => b.classList.remove('ativo'));
+
+    if (nome === 'corridas') {
+        document.getElementById('abaCorridas').classList.add('aberta');
+        document.querySelectorAll('.m-btn')[0].classList.add('ativo');
+    } else if (nome === 'relatorios') {
+        document.getElementById('abaRelatorios').classList.add('aberta');
+        document.querySelectorAll('.m-btn')[1].classList.add('ativo');
+        montarRelatorios();
+    } else {
+        document.getElementById('abaBackup').classList.add('aberta');
+        document.querySelectorAll('.m-btn')[2].classList.add('ativo');
+    }
+}
+
+// Corridas
+function pegarCorridas() {
+    try {
+        return JSON.parse(localStorage.getItem(CHAVE_CORRIDAS) || '[]');
+    } catch { return []; }
+}
+
+function salvarCorrida() {
+    const origem = document.getElementById('origem').value.trim();
+    const destino = document.getElementById('destino').value.trim();
+    const app = document.getElementById('app').value;
+    const periodo = document.getElementById('periodo').value;
+    const valor = parseFloat(document.getElementById('valor').value);
+    const km = parseFloat(document.getElementById('km').value) || 0;
+    let dataHora = document.getElementById('dataHora').value;
+    const obs = document.getElementById('obs').value.trim();
+
+    if (!origem || !destino || isNaN(valor)) {
+        alert('⚠️ Preencha origem, destino e valor!');
+        return;
+    }
+    if (!dataHora) {
+        const agora = new Date();
+        dataHora = new Date(agora.getTime() - (agora.getTimezoneOffset() * 60000)).toISOString().slice(0,16);
+    }
+
+    const corrida = {origem, destino, app, periodo, valor, km, dataHora, obs};
+    const lista = pegarCorridas();
+    lista.unshift(corrida);
+
+    try {
+        localStorage.setItem(CHAVE_CORRIDAS, JSON.stringify(lista));
+    } catch {
+        alert('❌ Não salvou — use Google Chrome e NÃO use modo anônimo!');
+        return;
+    }
+
+    alert('✅ Salvo!');
+    document.getElementById('origem').value = '';
+    document.getElementById('destino').value = '';
+    document.getElementById('valor').value = '';
+    document.getElementById('km').value = '';
+    document.getElementById('obs').value = '';
+    carregarDados();
+}
+
+function carregarDados() {
+    const lista = pegarCorridas();
+    const listaEl = document.getElementById('lista');
+    const vazioEl = document.getElementById('listaVazia');
+
+    if (lista.length === 0) {
+        listaEl.innerHTML = '';
+        vazioEl.classList.remove('escondido');
+    } else {
+        vazioEl.classList.add('escondido');
+        listaEl.innerHTML = lista.map(c => `
+            <div class="item">
+                <div class="linha"><strong>${c.origem} → ${c.destino}</strong><span class="valor verde">R$ ${c.valor.toFixed(2)}</span></div>
+                <div class="linha">
+                    <span>
+                        <span class="tag">${c.app}</span>
+                        <span class="tag">${c.periodo}</span>
+                        ${c.km ? `<span class="tag">${c.km.toFixed(1)} km</span>` : ''}
+                    </span>
+                    <small>${c.dataHora.replace('T',' às ')}</small>
+                </div>
+                ${c.obs ? `<div class="linha"><small>📝 ${c.obs}</small></div>` : ''}
+            </div>
+        `).join('');
+    }
+
+    const hoje = new Date().toISOString().slice(0,10);
+    let vHoje = 0, total = 0, totalKm = 0;
+    lista.forEach(c => {
+        if (c.dataHora.slice(0,10) === hoje) vHoje += c.valor;
+        total += c.valor;
+        totalKm += c.km || 0;
+    });
+    const mediaKm = totalKm > 0 ? total / totalKm : 0;
+
+    document.getElementById('valHoje').textContent = `R$ ${vHoje.toFixed(2)}`;
+    document.getElementById('valTotal').textContent = `R$ ${total.toFixed(2)}`;
+    document.getElementById('valKm').textContent = `${totalKm.toFixed(1)} km`;
+    document.getElementById('valMedia').textContent = `R$ ${mediaKm.toFixed(2)}`;
+
+    document.getElementById('qtd').textContent = lista.length;
+    document.getElementById('ganho').textContent = `R$ ${total.toFixed(2)}`;
+    document.getElementById('kmRel').textContent = `${totalKm.toFixed(1)} km`;
+    document.getElementById('mediaRel').textContent = `R$ ${mediaKm.toFixed(2)}`;
+}
+
+function montarRelatorios() {
+    const lista = pegarCorridas();
+    if (!lista.length) {
+        document.getElementById('graficoDias').innerHTML = '<p style="color:#777; margin:auto; font-size:13px;">Sem dados</p>';
+        document.getElementById('graficoApps').innerHTML = '<p style="color:#777; margin:auto; font-size:13px;">Sem dados</p>';
+        document.getElementById('melhorApp').textContent = '— Sem dados';
+        document.getElementById('melhorPeriodo').textContent = '— Sem dados';
+        return;
+    }
+
+    const cores = ['#FF9800','#2196F3','#00E676','#BB86FC','#FF5722'];
+
+    // Gráfico dias
+    const nomesDias = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+    const dadosDias = [];
+    for (let i=6; i>=0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dataStr = d.toISOString().slice(0,10);
+        const valor = lista.filter(c => c.dataHora.slice(0,10) === dataStr).reduce((s,c)=>s+c.valor,0);
+        dadosDias.push({nome: nomesDias[d.getDay()], valor});
+    }
+    const maxDia = Math.max(...dadosDias.map(d=>d.valor), 1);
+    document.getElementById('graficoDias').innerHTML = dadosDias.map((d,i) => `
+        <div style="display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
+            <div class="barra" style="height:${(d.valor/maxDia)*110}px; background:${cores[i%cores.length]};"></div>
+            <small style="font-size:9px; color:#888;">${d.nome.slice(0,3)}</small>
+        </div>
+    `).join('');
+
+    // Apps
+    const apps = {};
+    lista.forEach(c => {
+        if (!apps[c.app]) apps[c.app] = {qtd:0, valor:0, km:0};
+        apps[c.app].qtd++;
+        apps[c.app].valor += c.valor;
+        apps[c.app].km += c.km || 0;
+        apps[c.app].media = apps[c.app].km > 0 ? apps[c.app].valor / apps[c.app].km : apps[c.app].valor;
+    });
+    const listaApps = Object.values(apps);
+    const maxApp = Math.max(...listaApps.map(a=>a.qtd), 1);
+    document.getElementById('graficoApps').innerHTML = listaApps.map((a,i) => `
+        <div style="display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
+            <div class="barra" style="height:${(a.qtd/maxApp)*110}px; background:${cores[i%cores.length]}; width:28px;"></div>
+            <small style="font-size:9px; color:#888;">${a.nome || Object.keys(apps)[i]}</small>
+        </div>
+    `).join('');
+
+    // Melhor app
+    const melhorApp = listaApps.sort((a,b)=>b.media - a.media)[0];
+    if (melhorApp) {
+        document.getElementById('melhorApp').textContent = 
+            `${melhorApp.nome || Object.keys(apps).find(k=>apps[k]===melhorApp)} — R$ ${melhorApp.media.toFixed(2)}/km`;
+    }
+
+    // Melhor período
+    const periodos = {};
+    lista.forEach(c => {
+        if (!periodos[c.periodo]) periodos[c.periodo] = {qtd:0, valor:0, km:0};
+        periodos[c.periodo].qtd++;
+        periodos[c.periodo].valor += c.valor;
+        periodos[c.periodo].km += c.km || 0;
+        periodos[c.periodo].media = periodos[c.periodo].km > 0 ? periodos[c.periodo].valor / periodos[c.periodo].km : periodos[c.periodo].valor / periodos[c.periodo].qtd;
+    });
+    const melhorPeriodo = Object.values(periodos).sort((a,b)=>b.media - a.media)[0];
+    if (melhorPeriodo) {
+        const nomePer = Object.keys(periodos).find(k=>periodos[k]===melhorPeriodo);
+        document.getElementById('melhorPeriodo').textContent = 
+            `${nomePer} — R$ ${melhorPeriodo.media.toFixed(2)}/km`;
+    }
+}
+
+// Backup
+function baixarBackup() {
+    const lista = pegarCorridas();
+    if (!lista.length) return alert('Não há dados!');
+    const arq = new Blob([JSON.stringify(lista,null,2)], {type:'application/json'});
+    const url = URL.createObjectURL(arq);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `backup-movu-${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.json`;
+    a.click();
+}
+
+function restaurar(input) {
+    const arq = input.files[0];
+    if (!arq) return;
+    const leitor = new FileReader();
+    leitor.onload = e => {
+        try {
+            const dados = JSON.parse(e.target.result);
+            if (!Array.isArray(dados)) throw 'errado';
+            localStorage.setItem(CHAVE_CORRIDAS, JSON.stringify(dados));
+            carregarDados();
+            alert('✅ Restaurado!');
+        } catch {
+            alert('❌ Arquivo inválido!');
+        }
+    };
+    leitor.readAsText(arq);
+}
+
+verificarSessao();
+</script>
+
+</body>
+</html>
